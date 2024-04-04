@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+
+<!--head-->
+<head>
+    <th:block th:insert="admin/layout/head.html"></th:block>
+    <!-- ratio css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ratio.css}">
+    <!-- Themify icon css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vendors/themify.css}">
+    <!-- vector map css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vector-map.css}">
+    <!-- Slick Slider Css -->
+    <link rel="stylesheet" th:href="@{/css/vendors/slick.css}">
+
+
+</head>
+
+;
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Mar 2024 02:04:17 GMT -->
+
+
+<body>
+<!-- tap on top start -->
+<div class="tap-top">
+    <span class="lnr lnr-chevron-up"></span>
+</div>
+<!-- tap on tap end -->
+
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <th:block th:insert="admin/layout/header.html"></th:block>
+    ;
+    <!-- Page Header Ends-->
+
+    <!-- Page Body Start-->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <th:block th:insert="admin/layout/sidebar.html"></th:block>
+        ;
+        <!-- Page Sidebar Ends-->
+
+        <!-- index body start -->
+        <div class="page-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- chart caard section start -->
+                    <div class="col-sm-6 col-xxl-3 col-lg-6">
+                        <div class="main-tiles border-5 border-0  card-hover card o-hidden">
+                            <div class="custome-1-bg b-r-4 card-body">
+                                <div class="media align-items-center static-top-widget">
+                                    <div class="media-body p-0">
+                                        <span class="m-0">Total Revenue</span>
+                                        <h4 class="mb-0 counter">$6659
+                                            <span class="badge badge-light-primary grow">
+                                                    <i data-feather="trending-up"></i>8.5%</span>
+                                        </h4>
+                                    </div>
+                                    <div class="align-self-center text-center">
+                                        <i class="ri-database-2-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xxl-3 col-lg-6">
+                        <div class="main-tiles border-5 card-hover border-0 card o-hidden">
+                            <div class="custome-2-bg b-r-4 card-body">
+                                <div class="media static-top-widget">
+                                    <div class="media-body p-0">
+                                        <span class="m-0">Total Orders</span>
+                                        <h4 class="mb-0 counter"
+                                            th:attr="data-th-target=${orderCount}"
+                                            th:text="${orderCount}">
+
+                                        </h4>
+                                    </div>
+                                    <div class="align-self-center text-center">
+                                        <i class="ri-shopping-bag-3-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xxl-3 col-lg-6">
+                        <div class="main-tiles border-5 card-hover border-0  card o-hidden">
+                            <div class="custome-3-bg b-r-4 card-body">
+                                <div class="media static-top-widget">
+                                    <div class="media-body p-0">
+                                        <a th:href="@{category}">
+                                            <span class="m-0">Total Category</span>
+                                            <h4 class="mb-0 counter"
+                                                th:attr="data-th-target=${categoryCount}"
+                                                th:text="${categoryCount}">
+
+                                            </h4>
+                                        </a>
+                                    </div>
+
+                                    <div class="align-self-center text-center">
+                                        <i class="ri-chat-3-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xxl-3 col-lg-6">
+                        <div class="main-tiles border-5 card-hover border-0  card o-hidden">
+                            <div class="custome-3-bg b-r-4 card-body">
+                                <div class="media static-top-widget">
+                                    <div class="media-body p-0">
+                                        <span class="m-0">Total Products</span>
+                                        <h4 class="mb-0 counter"
+                                            th:attr="data-th-target=${productCount}"
+                                            th:text="${productCount}">
+
+                                        </h4>
+                                    </div>
+
+                                    <div class="align-self-center text-center">
+                                        <i class="ri-chat-3-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xxl-3 col-lg-6">
+                        <div class="main-tiles border-5 card-hover border-0 card o-hidden">
+                            <div class="custome-4-bg b-r-4 card-body">
+                                <div class="media static-top-widget">
+                                    <div class="media-body p-0">
+                                        <span class="m-0">Total Customers</span>
+                                        <h4 class="mb-0 counter"
+                                            th:attr="data-th-target='${userCount}'"
+                                            th:text="${userCount}">
+                                            <!--                                            <span class="badge badge-light-success grow">-->
+                                            <!--                                                    <i data-feather="trending-down"></i>8.5%</span>-->
+                                        </h4>
+                                    </div>
+
+                                    <div class="align-self-center text-center">
+                                        <i class="ri-user-add-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- Container-fluid Ends-->
+
+            <!-- footer start-->
+            <th:block th:insert="admin/layout/footer.html"></th:block>
+            ;
+            <!-- footer End-->
+        </div
+        >
+        <!-- index body end -->
+
+    </div>
+    <!-- Page Body End -->
+</div>
+<!-- page-wrapper End-->
+
+<!-- Modal Start -->
+<th:block th:insert="admin/layout/modalStart.html"></th:block>
+;
+<!-- Modal End -->
+
+<!-- Scrip -->
+<th:block th:insert="admin/layout/scrip.html"></th:block>
+
+<!-- tooltip init js -->
+<script th:src="@{/js/tooltip-init.js}"></script>
+<!-- Apexchar js -->
+
+<script th:src="@{/js/chart/apex-chart/apex-chart1.js}"></script>
+<script th:src="@{/js/chart/apex-chart/moment.min.js}"></script>
+<script th:src="@{/js/chart/apex-chart/apex-chart.js}"></script>
+<script th:src="@{/js/chart/apex-chart/stock-prices.js}"></script>
+<script th:src="@{/js/chart/apex-chart/chart-custom1.js}"></script>
+<!-- slick slider js -->
+<script th:src="@{/js/slick.min.js}"></script>
+<script th:src="@{/js/custom-slick.js}"></script>
+<!-- customizer js -->
+<script th:src="@{/js/customizer.js}"></script>
+<!-- ratio js -->
+<script th:src="@{/js/ratio.js}"></script>
+;
+</body>
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Mar 2024 02:04:36 GMT -->
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/add-new-category.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Mar 2024 02:05:00 GMT -->
+<head>
+    <th:block th:insert="/admin/layout/head.html"></th:block>
+    ;
+    <!-- Data Table css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/datatables.css}">
+    <!-- Themify icon css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/vendors/themify.css}">
+    <style>
+        #customer-img {
+            height: 200px !important;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- tap on top start -->
+<div class="tap-top">
+    <span class="lnr lnr-chevron-up"></span>
+</div>
+<!-- tap on tap end -->
+
+<!-- page-wrapper start -->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <th:block th:insert="admin/layout/header.html"></th:block>
+    <!-- Page Header Ends-->
+
+    <!-- Page Body start -->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <th:block th:insert="admin/layout/sidebar.html"></th:block>
+        ;
+        <!-- Page Sidebar Ends-->
+
+        <div class="page-body">
+
+            <!-- New Product Add Start -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-sm-8 m-auto">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-header-2">
+                                            <h5>Brand Information</h5>
+                                        </div>
+                                        <div class="theme-form theme-form-2 mega-form">
+                                            <form method="post" th:action="@{/admin/add-brand}"
+                                                  th:object="${brand}" enctype="multipart/form-data">
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="form-label-title col-sm-3 mb-0">Brand Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="text"
+                                                               th:field="*{brandName}"
+                                                               placeholder="Category Name">
+                                                    </div>
+                                                </div>
+
+                                                <div class="hstack gap-2 justify-content-end mb-3 d-flex">
+                                                    <a th:href="@{/admin/category}">
+                                                        <button class="btn btn-danger" type="button"><i
+                                                                class="ph-x align-middle"></i> Cancel
+                                                        </button>
+                                                    </a>
+                                                    <button type="submit" class="btn btn-primary">Add</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Product Add End -->
+
+            <!-- footer Start -->
+            <div class="container-fluid">
+                <footer class="footer">
+                    <div class="row">
+                        <div class="col-md-12 footer-copyright text-center">
+                            <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <!-- footer En -->
+        </div>
+        <!-- Container-fluid End -->
+    </div>
+    <!-- Page Body End -->
+</div>
+<!-- page-wrapper End -->
+
+<!-- Modal Start -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                <p>Are you sure you want to log out?</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="button-box">
+                    <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal End -->
+
+<th:block th:insert="/admin/layout/scrip.html"></th:block>
+<!-- Data table js -->
+<script th:src="@{/admin/js/jquery.dataTables.js}"></script>
+<script th:src="@{/admin/js/custom-data-table.js}"></script>
+
+<!-- all checkbox select js -->
+<script th:src="@{/admin/js/checkbox-all-check.js}"></script>
+<!-- bootstrap tag-input js -->
+<script th:src="@{/admin/js/bootstrap-tagsinput.min.js}"></script>
+<script th:src="@{/admin/js/sidebar-menu.js}"></script>
+
+<!-- latest js -->
+<script th:src="@{/admin/js/jquery-3.6.0.min.js}"></script>
+
+<!-- Bootstrap js -->
+<script th:src="@{/admin/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+<!-- feather icon js -->
+<script th:src="@{/admin/js/icons/feather-icon/feather.min.js}"></script>
+<script th:src="@{/admin/js/icons/feather-icon/feather-icon.js}"></script>
+
+<!-- scrollbar simplebar js -->
+<script th:src="@{/admin/js/scrollbar/simplebar.js}"></script>
+<script th:src="@{/admin/js/scrollbar/custom.js}"></script>
+
+<!-- Sidebar js -->
+<script th:src="@{/admin/js/config.js}"></script>
+
+<!-- bootstrap tag-input js -->
+<script th:src="@{/admin/js/bootstrap-tagsinput.min.js}"></script>
+<script th:src="@{/admin/js/sidebar-menu.js}"></script>
+
+<!-- customizer js -->
+<script th:src="@{/admin/js/customizer.js}"></script>
+
+<!--Dropzon js -->
+<script th:src="@{/admin/js/dropzone/dropzone.js}"></script>
+<script th:src="@{/admin/js/dropzone/dropzone-script.js}"></script>
+
+<!-- Plugins js -->
+<script th:src="@{/admin/js/notify/bootstrap-notify.min.js}"></script>
+<script th:src="@{/admin/js/notify/index.js}"></script>
+
+<!-- select2 js -->
+<script th:src="@{/admin/js/select2.min.js}"></script>
+<script th:src="@{/admin/js/select2-custom.js}"></script>
+
+<!-- sidebar effect -->
+<script th:src="@{/admin/js/sidebareffect.js}"></script>
+
+<!-- Theme js -->
+<script th:src="@{/admin/js/script.js}"></script>
+<script>
+    function cancelForm() {
+        window.location.href = "/admin/category";
+    }
+
+    // function showImage(input) {
+    //     if (input.files && input.files[0]) {
+    //         var reader = new FileReader();
+    //
+    //         reader.onload = function (e) {
+    //             document.getElementById('customer-img').setAttribute('src', e.target.result);
+    //         }
+    //
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // }
+</script>
+<script>
+    function showImage(input) {
+        var imgElement = document.getElementById("customer-img");
+        var imageContainer = document.getElementById("image-container");
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                imgElement.src = e.target.result;
+                imageContainer.classList.remove("d-none"); // Loại bỏ lớp d-none để hiển thị div khi có hình ảnh được chọn
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            imgElement.src = "";
+            imageContainer.classList.add("d-none"); // Thêm lớp d-none để ẩn div khi không có hình ảnh được chọn
+        }
+    }
+</script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/add-new-category.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Mar 2024 02:05:00 GMT -->
+</html>

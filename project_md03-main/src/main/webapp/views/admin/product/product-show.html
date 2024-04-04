@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/add-new-category.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Mar 2024 02:05:00 GMT -->
+<head>
+    <th:block th:insert="/admin/layout/head.html"></th:block>
+    ;
+    <!-- Data Table css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/datatables.css}">
+    <!-- Themify icon css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/vendors/themify.css}">
+
+    <script th:src="@{/admin/js/ckeditor/ckeditor.js}"></script>
+</head>
+
+<body>
+<!-- tap on top start -->
+<div class="tap-top">
+    <span class="lnr lnr-chevron-up"></span>
+</div>
+<!-- tap on tap end -->
+
+<!-- page-wrapper start -->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <th:block th:insert="admin/layout/header.html"></th:block>
+    <!-- Page Header Ends-->
+
+    <!-- Page Body start -->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <th:block th:insert="admin/layout/sidebar.html"></th:block>
+        ;
+        <!-- Page Sidebar Ends-->
+
+        <div class="page-body">
+
+            <!-- New Product Add Start -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-sm-8 m-auto">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-header-2">
+                                            <h5> Product Information Detail</h5>
+                                        </div>
+                                        <div class="theme-form theme-form-2 mega-form">
+                                            <form th:object="${product}" enctype="multipart/form-data">
+
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="form-label-title col-sm-3 mb-0">Product ID</label>
+                                                    <div class="col-sm-9">
+                                                        <p type="text" class="form-control"
+                                                           th:text="${product.productId}"
+                                                           readonly>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="form-label-title col-sm-3 mb-0">Product Name</label>
+                                                    <div class="col-sm-9">
+
+                                                        <p class="form-control" type="text"
+                                                           th:text="${product.productName}"
+                                                        ></p>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-4 row align-items-center">
+                                                    <div class="col-sm-3 form-label-title">Category</div>
+                                                    <div class="col-sm-9">
+                                                        <p class="form-control" type="text"
+                                                           th:text="${product.category.categoryName}"
+                                                        ></p></div>
+                                                </div>
+
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="col-sm-3 col-form-label form-label-title">Brand</label>
+                                                    <div class="col-sm-9">
+                                                        <p class="form-control" type="text"
+                                                           th:text="${product.brand.brandName}"></p>
+
+                                                    </div>
+                                                </div>
+                                                <div class="mb-4 row align-items-center ">
+                                                    <label class="col-sm-3 col-form-label form-label-title">Description</label>
+                                                    <div class="col-sm-9">
+                                                        <textarea id="descriptionProduct" cols="50" rows="10"
+                                                                  th:text="${product.description}"></textarea>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="col-sm-3 col-form-label form-label-title">Product
+                                                        Image</label>
+                                                    <div class="col-sm-9">
+                                                        <div class="py-3">
+                                                            <img th:src="${product.image}" alt="Ảnh sản phẩm"
+                                                                 id="customer-img"
+                                                                 class="img-fluid rounded-3 border object-fit-cover"
+                                                                 width="100px" height="100px">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="col-sm-3 col-form-label form-label-title">Product
+                                                        SubImage</label>
+                                                    <div class="col-sm-9">
+                                                        <div class="py-3">
+                                                            <ul class="mt-2 col-lg-6 rounded d-flex"
+                                                                id="dropzone-preview-list2">
+                                                                <li th:each="img : ${imageList}">
+                                                                    <div class="text-center border border-dashed mb-3 d-flex flex-wrap justify-content-center align-items-center">
+                                                                        <img th:src="${img.src}" alt="Ảnh phụ"
+                                                                             class="py-1 img-fluid rounded-3 object-fit-cover"
+                                                                             width="150px" height="150px"
+                                                                             style="margin-right: 10px; margin-bottom: 10px;">
+
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="form-label-title col-sm-3 mb-0">Product Status</label>
+                                                    <div class="col-sm-9">
+                                                        <p class="form-control" type="text"
+                                                           th:text="${product.productStatus ? 'ACTIVE' : 'INACTIVE'}"
+                                                        ></p>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="form-label-title col-sm-3 mb-0">price</label>
+                                                    <div class="col-sm-9">
+                                                        <p class="form-control" type="text"
+                                                           th:text="${product.price}"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-4 row align-items-center ">
+                                                    <label class="form-label-title col-sm-3 mb-0">Stock</label>
+                                                    <div class="col-sm-9">
+                                                        <p class="form-control" type="text"
+                                                           th:text="${product.stock}"></p>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="hstack gap-2 justify-content-end mb-3 d-flex">
+                                                    <a th:href="@{/admin/product}">
+                                                        <button class="btn btn-danger" type="button"><i
+                                                                class="ph-x align-middle"></i> Close
+                                                        </button>
+                                                    </a>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Product Add End -->
+
+            <!-- footer Start -->
+            <div class="container-fluid">
+                <footer class="footer">
+                    <div class="row">
+                        <div class="col-md-12 footer-copyright text-center">
+                            <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <!-- footer En -->
+        </div>
+        <!-- Container-fluid End -->
+    </div>
+    <!-- Page Body End -->
+</div>
+<!-- page-wrapper End -->
+
+<!-- Modal Start -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                <p>Are you sure you want to log out?</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="button-box">
+                    <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal End -->
+
+<!--<th:block th:insert="/admin/layout/scrip.html"></th:block>-->
+<!--&lt;!&ndash; Data table js &ndash;&gt;-->
+<!--<script th:src="@{/admin/js/jquery.dataTables.js}"></script>-->
+<!--<script th:src="@{/admin/js/custom-data-table.js}"></script>-->
+
+<!--&lt;!&ndash; all checkbox select js &ndash;&gt;-->
+<!--<script th:src="@{/admin/js/checkbox-all-check.js}"></script>-->
+<!--&lt;!&ndash; bootstrap tag-input js &ndash;&gt;-->
+<!--<script th:src="@{/admin/js/bootstrap-tagsinput.min.js}"></script>-->
+<!--<script th:src="@{/admin/js/sidebar-menu.js}"></script>-->
+
+<!-- latest js -->
+<script th:src="@{/admin/js/jquery-3.6.0.min.js}"></script>
+
+<!-- Bootstrap js -->
+<script th:src="@{/admin/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+<!-- feather icon js -->
+<script th:src="@{/admin/js/icons/feather-icon/feather.min.js}"></script>
+<script th:src="@{/admin/js/icons/feather-icon/feather-icon.js}"></script>
+
+<!-- scrollbar simplebar js -->
+<script th:src="@{/admin/js/scrollbar/simplebar.js}"></script>
+<script th:src="@{/admin/js/scrollbar/custom.js}"></script>
+
+<!-- Sidebar js -->
+<script th:src="@{/admin/js/config.js}"></script>
+
+<!-- bootstrap tag-input js -->
+<script th:src="@{/admin/js/bootstrap-tagsinput.min.js}"></script>
+<script th:src="@{/admin/js/sidebar-menu.js}"></script>
+
+<!-- customizer js -->
+<script th:src="@{/admin/js/customizer.js}"></script>
+
+<!--Dropzon js -->
+<script th:src="@{/admin/js/dropzone/dropzone.js}"></script>
+<script th:src="@{/admin/js/dropzone/dropzone-script.js}"></script>
+
+<!-- Plugins js -->
+<script th:src="@{/admin/js/notify/bootstrap-notify.min.js}"></script>
+<script th:src="@{/admin/js/notify/index.js}"></script>
+
+<!-- select2 js -->
+<script th:src="@{/admin/js/select2.min.js}"></script>
+<script th:src="@{/admin/js/select2-custom.js}"></script>
+
+<!-- sidebar effect -->
+<script th:src="@{/admin/js/sidebareffect.js}"></script>
+
+<!-- Theme js -->
+<script th:src="@{/admin/js/script.js}"></script>
+<!--<script>-->
+<!--    function showImage(input) {-->
+<!--        if (input.files && input.files[0]) {-->
+<!--            var reader = new FileReader();-->
+
+<!--            reader.onload = function (e) {-->
+<!--                document.getElementById('customer-img').setAttribute('src', e.target.result);-->
+<!--            }-->
+
+<!--            reader.readAsDataURL(input.files[0]);-->
+<!--        }-->
+<!--    }-->
+
+<!--    function loadFiles(event) {-->
+<!--        var files = event.target.files;-->
+<!--        var previewContainer = document.getElementById('dropzone-preview2');-->
+<!--        previewContainer.innerHTML = '';-->
+
+<!--        for (var i = 0; i < files.length; i++) {-->
+<!--            var file = files[i];-->
+<!--            var reader = new FileReader();-->
+
+<!--            reader.onload = function (e) {-->
+<!--                var img = document.createElement('img');-->
+<!--                img.src = e.target.result;-->
+<!--                img.classList.add('py-1', 'h-auto', 'rounded-3', 'object-fit-cover');-->
+<!--                img.style.width = '90%';-->
+<!--                img.style.height = '90%';-->
+
+<!--                var li = document.createElement('li');-->
+<!--                li.classList.add('mt-2', 'col-lg-6', 'rounded');-->
+<!--                li.appendChild(img);-->
+
+<!--                previewContainer.appendChild(li);-->
+<!--            }-->
+
+<!--            reader.readAsDataURL(file);-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+<script>
+    CKEDITOR.replace('descriptionProduct');
+</script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/add-new-category.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Mar 2024 02:05:00 GMT -->
+</html>

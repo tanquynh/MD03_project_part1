@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/category.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Mar 2024 02:05:00 GMT -->
+<head>
+    <th:block th:insert="/admin/layout/head.html"></th:block>
+    ;
+    <!-- Data Table css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/datatables.css}">
+    <!-- Themify icon css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/vendors/themify.css}">
+</head>
+
+<body>
+<!-- tap on top start -->
+<div class="tap-top">
+    <span class="lnr lnr-chevron-up"></span>
+</div>
+<!-- tap on tap end -->
+
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <th:block th:insert="admin/layout/header.html"></th:block>
+    ;
+    <!-- Page Header Ends-->
+
+    <!-- Page Body Start -->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <th:block th:insert="admin/layout/sidebar.html"></th:block>
+        ;
+        <!-- Page Sidebar Ends-->
+
+        <!-- Container-fluid starts-->
+        <div class="page-body">
+            <!-- All User Table Start -->
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- chart caard section start -->
+                    <div class="col-sm-6 col-xxl-3 col-lg-6">
+                        <div class="main-tiles border-5 card-hover border-0 card o-hidden">
+                            <div class="custome-2-bg b-r-4 card-body">
+                                <div class="media static-top-widget">
+                                    <div class="media-body p-0">
+                                        <span class="m-0">Total Coupons</span>
+                                        <h4 class="mb-0 counter"
+                                            th:attr="data-th-target='${activeCoupons + inactiveCoupons}'"
+                                            th:text="${activeCoupons + inactiveCoupons}">
+
+                                        </h4>
+                                    </div>
+                                    <div class="align-self-center text-center">
+                                        <i class="ri-shopping-bag-3-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xxl-3 col-lg-6">
+                        <div class="main-tiles border-5 card-hover border-0  card o-hidden">
+                            <div class="custome-3-bg b-r-4 card-body">
+                                <div class="media static-top-widget">
+                                    <div class="media-body p-0">
+                                        <a th:href="@{category}">
+                                            <span class="m-0">Active Category</span>
+                                            <h4 class="mb-0 counter"
+                                                th:text="${activeCoupons}">
+
+                                            </h4>
+                                        </a>
+                                    </div>
+
+                                    <div class="align-self-center text-center">
+                                        <i class="ri-chat-3-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xxl-3 col-lg-6">
+                        <div class="main-tiles border-5 card-hover border-0  card o-hidden">
+                            <div class="custome-3-bg b-r-4 card-body">
+                                <div class="media static-top-widget">
+                                    <div class="media-body p-0">
+                                        <span class="m-0">InActive</span>
+                                        <h4 class="mb-0 counter"
+                                            th:text="${inactiveCoupons}">
+
+                                        </h4>
+                                    </div>
+
+                                    <div class="align-self-center text-center">
+                                        <i class="ri-chat-3-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card card-table">
+                            <div class="card-body">
+                                <div class="title-header option-title">
+                                    <h5>All Category</h5>
+                                    <form class="d-inline-flex">
+                                        <a th:href="@{/admin/add-coupons}"
+                                           class="align-items-center btn btn-theme d-flex">
+                                            <i data-feather="plus-square"></i>Add New
+                                        </a>
+                                    </form>
+                                    <nav>
+
+                                        <form th:action="@{/admin/coupons/}" method="get" class="d-inline-flex">
+                                            <input type="search" placeholder="Search" aria-label="Search"
+                                                   th:name="searchName" th:value="${searchName}">
+                                            <button class="align-items-center btn btn-theme d-flex" type="submit">
+                                                Search
+                                            </button>
+                                        </form>
+                                    </nav>
+                                </div>
+
+
+                                <div class="table-responsive category-table">
+                                    <div>
+                                        <table class="table all-package theme-table" id="table_id">
+                                            <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Title</th>
+                                                <th>Code</th>
+                                                <th>Discount</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr th:unless="${couponsList.size() == 0}"
+                                                th:each="cou:${couponsList}">
+                                                <td th:text="${cou.getId()}"></td>
+
+
+                                                <td>
+                                                    <span th:text="${#strings.length(cou.title) &gt; 20? #strings.substring(cou.title,0,20) + '...' : cou.title}"
+                                                    ></span>
+
+                                                </td>
+                                                <td>
+                                                    <span th:text="${#strings.length(cou.code) &gt; 20? #strings.substring(cou.code,0,20) + '...' : cou.code}"
+                                                    ></span>
+
+                                                </td>
+                                                <td>
+                                                    <span th:text="${#strings.length(cou.discount) &gt; 20? #strings.substring(cou.discount,0,20) + '...' : cou.discount}"
+                                                    ></span>
+
+                                                </td>
+
+                                                <td>
+                                                    <span th:text="${cou.status?'Active':'BLock'}"></span>
+                                                </td>
+
+                                                <td>
+                                                    <ul>
+                                                        <li>
+                                                            <a th:href="@{/admin/coupons-show/{couponsId}(couponsId=${cou.id})}">
+                                                                <i class="ri-eye-line"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a th:href="@{/admin/coupons-edit/{couponsId}(couponsId=${cou.id})}">
+                                                                <i class="ri-pencil-line"></i>
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a onclick="return confirm('Are you sure to change status?')"
+                                                               th:href="@{/admin/coupons-block/{couponsId}(couponsId=${cou.id})}"
+                                                               data-bs-toggle="tooltip"
+                                                               title="Change status"
+                                                               class="btn btn-subtle-danger btn-icon btn-sm"
+                                                            > <i class="ri-bold ri-swap-box-fill"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--            Pagination-->
+            <nav th:if="${totalPage} <= 1"></nav>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{${'/admin/coupons/' + (currentPage > 1 ? (currentPage - 1) : 1)}}" tabindex="-1"
+                           th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                            Previous
+                        </a>
+                    </li>
+                    <li th:each="page : ${#numbers.sequence(1, totalPage)}"
+                        th:class="${page == currentPage ? 'page-item active' : 'page-item'}">
+                        <a class="page-link" th:href="@{${'/admin/coupons/' + page}}" th:text="${page}"></a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{${'/admin/coupons/' + (currentPage < totalPage ? (currentPage + 1) : totalPage)}}"
+                           th:classappend="${currentPage == totalPage ? 'disabled' : ''}">
+                            Next
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+            <div class="container-fluid">
+                <!-- footer start-->
+                <footer class="footer">
+                    <div class="row">
+                        <div class="col-md-12 footer-copyright text-center">
+                            <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
+                        </div>
+                    </div>
+                </footer>
+                <!-- footer end-->
+            </div>
+        </div>
+        <!-- Container-fluid end -->
+    </div>
+    <!-- Page Body End -->
+
+    <!-- Modal Start -->
+    <th:block th:insert="admin/layout/modalStart.html"></th:block>
+    <!-- Modal End -->
+</div>
+
+<!-- Delete Modal Box Start -->
+<div class="modal fade theme-modal remove-coupon" id="exampleModalToggle" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-block text-center">
+
+                <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="remove-box">
+                    <p>The permission for the use/group, preview is inherited from the object, object will create a
+                        new permission for this object</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-target="#exampleModalToggle2"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade theme-modal remove-coupon" id="exampleModalToggle2" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="remove-box text-center">
+                    <div class="wrapper">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-content">It's Removed.</h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal Box End -->
+
+<th:block th:insert="/admin/layout/scrip.html"></th:block>
+<!-- Data table js -->
+<script th:src="@{/admin/js/jquery.dataTables.js}"></script>
+<script th:src="@{/admin/js/custom-data-table.js}"></script>
+
+<!-- all checkbox select js -->
+<script th:src="@{/admin/js/checkbox-all-check.js}"></script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/category.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Mar 2024 02:05:00 GMT -->
+</html>

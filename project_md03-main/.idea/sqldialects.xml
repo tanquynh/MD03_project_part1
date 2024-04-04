@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/brand.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/cart.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/category.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/comment.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/coupons.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/image.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/like.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/order.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/orderDetail.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/product.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/user.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ra/project_md03/sql/wishlist.sql" dialect="GenericSQL" />
+  </component>
+</project>
