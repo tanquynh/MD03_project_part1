@@ -4,8 +4,10 @@ import org.springframework.stereotype.Repository;
 import ra.project_md03.util.ConnectionDatabase;
 
 import java.sql.*;
+
 @Repository
 public class CartDaoImpl implements CartDao {
+
     @Override
     public Integer checkCartUser(Integer userId) {
         Connection connection = null;
@@ -13,17 +15,18 @@ public class CartDaoImpl implements CartDao {
             connection = ConnectionDatabase.openConnection();
             CallableStatement statement = connection.prepareCall("{CALL PROC_GET_USER_CART_ID(?,?)}");
             statement.setInt(1, userId);
-            statement.registerOutParameter(2, Types.INTEGER);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return statement.getInt(2);
-            } else {
-                return 0;
+            statement.registerOutParameter(2, java.sql.Types.INTEGER);
+            statement.execute();
+          int id =  statement.getInt(2);
+            if(id > 0) {
+                return id;
             }
+            return 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public Integer save(Integer userId) {

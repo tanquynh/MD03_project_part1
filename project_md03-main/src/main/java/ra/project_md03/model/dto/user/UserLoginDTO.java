@@ -21,6 +21,7 @@ public class UserLoginDTO {
     @Size(min = 4, max = 12, message = "Password's length is from 4 to 12")
     private String password;
     private String username;
+    private String avatar = "https://firebasestorage.googleapis.com/v0/b/project-md03-javaweb.appspot.com/o/human.jpg?alt=media&token=9eb4c0d8-74fa-433e-894d-c152119c288c";
     private boolean userStatus = true;
     private boolean role = true;
 }

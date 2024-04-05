@@ -3,13 +3,14 @@ CREATE TABLE orders
     id       int primary key auto_increment,
     user_id  int,
     foreign key (user_id) references user (id),
-    total    double,
+    total    decimal,
     address  text,
     note     text,
     payment  varchar(100),
     status   int(1) default 0,
     order_at date   default (DATE(NOW()))
 );
+
 
 DELIMITER //
 CREATE PROCEDURE PROC_ORDERS_FIND_ALL()

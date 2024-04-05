@@ -5,5 +5,5 @@ CREATE TABLE order_detail
     product_id int,
     foreign key (product_id) references product (id),
     quantity   int,
-    price      double
+    price      decimal
 );

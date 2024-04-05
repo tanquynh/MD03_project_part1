@@ -3,6 +3,7 @@ package ra.project_md03.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,6 +21,7 @@ import ra.project_md03.model.service.category.CategoryServiceImpl;
 import ra.project_md03.model.service.image.ImageService;
 import ra.project_md03.model.service.product.ProductService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,7 +76,14 @@ public class ProductController {
     }
 
     @RequestMapping(value = {"/product-add"}, method = RequestMethod.POST)
-    public String addProduct(@ModelAttribute("product") ProductDTO productDTO) {
+    public String addProduct(@Valid  @ModelAttribute("product") ProductDTO productDTO, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            List<Category> categoryList = categoryService.findAll().stream().filter(Category::isCategoryStatus).collect(Collectors.toList());
+            List<Brand> brandList = brandService.findAll().stream().filter(Brand::isBrandStatus).collect(Collectors.toList());
+            model.addAttribute("brandList", brandList);
+            model.addAttribute("categoryList", categoryList);
+            return "/admin/category/add-new-category";
+        }
         productService.save(productDTO);
         return "redirect:/admin/product";
     }
@@ -100,8 +109,14 @@ public class ProductController {
     }
 
     @RequestMapping(value = {"/product-edit"}, method = RequestMethod.POST)
-    public String editProduct(@ModelAttribute("product") ProductEditDTO product
+    public String editProduct( @Valid @ModelAttribute("product") ProductEditDTO product, BindingResult bindingResult, Model model
     ) {
+        Product updateProduct = productService.findById(product.getProductId());
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("image", updateProduct.getImage());
+            model.addAttribute("categoryList", categoryService.findParent());
+            return "admin/category/category-edit";
+        }
         productService.update(product);
         return "redirect:/admin/product";
     }

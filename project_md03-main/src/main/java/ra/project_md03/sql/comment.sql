@@ -4,7 +4,7 @@ create table comment
 (
     id        int primary key auto_increment,
     comment   text,
-    productId int not null,
+    productId int,
     rating    int,
     foreign key (productId) references product (id),
     userId    int not null,

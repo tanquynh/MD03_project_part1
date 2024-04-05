@@ -22,6 +22,18 @@
             display: none;
         }
     </style>
+    <style>
+        .error-message {
+            color: #dc3545; /* Màu đỏ phù hợp với đường viền khi có lỗi */
+            font-size: 0.875rem; /* Kích thước font nhỏ hơn */
+            margin-top: 0.25rem; /* Khoảng cách giữa trường và thông báo lỗi */
+        }
+
+        .border-danger input {
+            border-color: #dc3545 !important; /* Đổi màu viền của trường nhập liệu thành đỏ */
+            border-width: 1px; /* Độ dày của đường viền */
+        }
+    </style>
 </head>
 
 <body>
@@ -65,7 +77,11 @@
                                                     <div class="col-sm-9">
                                                         <input class="form-control" type="text"
                                                                th:field="*{categoryName}"
+                                                               th:classappend="${#fields.hasErrors('categoryName')} ? 'border-danger' : ''"
                                                                placeholder="Category Name">
+                                                        <div class="error-message "
+                                                             th:if="${#fields.hasErrors('categoryName')}"
+                                                             th:errors="*{categoryName}"></div>
                                                     </div>
                                                 </div>
 

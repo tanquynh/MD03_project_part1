@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <th:block th:insert="userview/layouts/head.html"></th:block>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
-
 </head>
+
+
 
 <body>
 
 <!-- LOADER -->
-<div class="preloader">
-    <div class="lds-ellipsis">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</div>
+<!--<div class="preloader">-->
+<!--    <div class="lds-ellipsis">-->
+<!--        <span></span>-->
+<!--        <span></span>-->
+<!--        <span></span>-->
+<!--    </div>-->
+<!--</div>-->
 <!-- END LOADER -->
 
 
@@ -147,29 +148,29 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="arrival" role="tabpanel" aria-labelledby="arrival-tab">
                             <div class="row shop_container">
-                                <div class="col-lg-3 col-md-4 col-6">
+                                <div class="col-lg-3 col-md-4 col-6" th:each="pro : ${productList}">
                                     <div class="product">
                                         <div class="product_img">
-                                            <a href="shop-product-detail.html">
-                                                <img th:src="@{/user/images/product_img1.jsp}" alt="product_img1">
+                                            <a th:href="@{/shop-product-detail}">
+                                                <img th:src="${pro.image}" alt="product_img1">
                                             </a>
                                             <div class="product_action_box">
                                                 <ul class="list_none pr_action_btn">
-                                                    <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                                    <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                                    <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                                    <li class="add-to-cart">
+                                                        <a href="#" class="add-to-cart-btn" th:data-product-id="${pro.productId}">
+                                                            <i class="icon-basket-loaded"></i> Add To Cart
+                                                        </a>
+                                                    </li>
+                                                    <li><a th:href="@{/shop-compare}" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
+                                                    <li><a th:href="@{/shop-quick-view}" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
                                                     <li><a href="#"><i class="icon-heart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="product_info">
-                                            <h6 class="product_title"><a href="shop-product-detail.html">Blue Dress For Woman</a></h6>
+                                            <h6 class="product_title"><a th:href="@{/shop-product-detail}" th:text="${pro.productName}"></a></h6>
                                             <div class="product_price">
-                                                <span class="price">$45.00</span>
-                                                <del>$55.25</del>
-                                                <div class="on_sale">
-                                                    <span>35% Off</span>
-                                                </div>
+                                                <span class="price" th:text="${pro.price}">$45.00</span>
                                             </div>
                                             <div class="rating_wrap">
                                                 <div class="rating">
@@ -177,15 +178,8 @@
                                                 </div>
                                                 <span class="rating_num">(21)</span>
                                             </div>
-                                            <div class="pr_desc">
+                                            <div class="pr_desc" th:text="${pro.description}">
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                            </div>
-                                            <div class="pr_switch_wrap">
-                                                <div class="product_color_switch">
-                                                    <span class="active" data-color="#87554B"></span>
-                                                    <span data-color="#333333"></span>
-                                                    <span data-color="#DA323F"></span>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1862,7 +1856,26 @@
 
 <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
 <th:block th:insert="userview/layouts/scrip.html"></th:block>
+<script>
 
+        $('.add-to-cart-btn').on('click', function(e){
+            e.preventDefault();
+            var product = $(this).data('product-id');
+            console.log(product)
+            $.ajax({
+                type: 'GET',
+                url: `/addToCart?productId=`+product,
+                success: function() {
+                    console.log('Sản phẩm đã được thêm vào giỏ hàng');
+                },
+                error: function() {
+                    console.error('Lỗi khi thêm sản phẩm vào giỏ hàng:');
+
+                }
+            });
+
+    });
+</script>
 
 </body>
 </html>

@@ -33,7 +33,7 @@ public class ProductDapImpl implements ProductDao {
                 product.setProductName(resultSet.getString("name"));
                 product.setPrice(resultSet.getBigDecimal("price"));
                 product.setDescription(resultSet.getString("description"));
-                product.setBrand(brandDao.findById(resultSet.getInt("brand")));
+                product.setBrand(brandDao.findById(resultSet.getInt("brand_id")));
                 product.setStock(resultSet.getInt("stock"));
                 product.setProductStatus(resultSet.getBoolean("status"));
                 product.setImage(resultSet.getString("image"));

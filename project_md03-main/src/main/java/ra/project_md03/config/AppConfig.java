@@ -6,11 +6,14 @@ import com.google.cloud.storage.StorageOptions;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -30,6 +33,8 @@ import java.io.InputStream;
 @PropertySource("classpath:config.properties")
 public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
+
+
 
     @Bean
 
@@ -88,24 +93,6 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/css/**",
-//                        "/fonts/**",
-//                        "/images/**",
-//                        "/js/**",
-//                        "/svg/**",
-//                        "/user/css/**",
-//                        "/user/fonts/**",
-//                        "/user/images/**",
-//                        "/user/js/**",
-//                        "/user/bootstrap/**",
-//                        "/user/owlcarousel/**")
-//                .addResourceLocations("classpath:/assets/admin/css/",
-//                        "classpath:/assets/admin/fonts/",
-//                        "classpath:/assets/admin/images/",
-//                        "classpath:/assets/admin/js/", "classpath:/assets/admin/svg/","classpath:assets/user/","classpath:assets/user/","classpath:assets/user/","classpath:assets/user/","classpath:assets/user/","classpath:assets/user/");
-//    }
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(
                 "/ckeditor/**",
@@ -117,5 +104,28 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
                      );
     }
 
+    // cau hinh message validate
+    @Bean(name = "messageSource")
+    public MessageSource messageSource()
+    {
+        ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
+        bean.setBasename("classpath:message");
+        bean.setDefaultEncoding("UTF-8");
+        return bean;
+    }
+
+    @Bean(name = "validator")
+    public LocalValidatorFactoryBean validator()
+    {
+        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+        bean.setValidationMessageSource(messageSource());
+        return bean;
+    }
+
+    @Override
+    public Validator getValidator()
+    {
+        return validator();
+    }
 
 }

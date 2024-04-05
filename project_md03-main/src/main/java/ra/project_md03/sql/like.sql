@@ -3,8 +3,8 @@ md03_project_database;
 create table like
 (
     id        int primary key auto_increment,
-    productId int not null,
-    like int,
+    productId int,
+    numLike int,
     foreign key (productId) references product (id),
     userId    int not null,
     foreign key (userId) references user (id)

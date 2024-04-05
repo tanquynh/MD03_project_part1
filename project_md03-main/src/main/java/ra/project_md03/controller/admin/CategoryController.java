@@ -26,6 +26,7 @@ public class CategoryController {
     private UploadService uploadService;
     @Autowired
     private ImageService imageService;
+
     @RequestMapping({"/category", "/category/{i}"})
     public String pagination(Model model, @PathVariable(value = "i", required = false) Integer page, @RequestParam(name = "searchName", required = false) String searchName) {
         int currentPage = (page != null && page >= 1) ? page : 1;
@@ -62,9 +63,13 @@ public class CategoryController {
         return "/admin/category/add-new-category";
     }
 
-    @PostMapping("/add-new-category")
-    public String addCategory(@Valid @ModelAttribute("category") CategoryDTO categoryDTO
+    @RequestMapping(value = "/add-new-category", method = RequestMethod.POST)
+    public String addCategory(@Valid @ModelAttribute("category") CategoryDTO categoryDTO, BindingResult bindingResult, Model model
     ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categoryList", categoryService.findParent());
+            return "/admin/category/add-new-category";
+        }
         categoryService.saveOrUpdate(categoryDTO);
         return "redirect:/admin/category";
     }
@@ -77,14 +82,21 @@ public class CategoryController {
         categoryEditDTO.setCategoryName(category.getCategoryName());
         categoryEditDTO.setParentId(category.getParentId());
         model.addAttribute("image", category.getImage());
-        model.addAttribute("category",categoryEditDTO);
+        model.addAttribute("category", categoryEditDTO);
         model.addAttribute("categoryList", categoryService.findParent());
         return "/admin/category/category-edit";
     }
 
     @RequestMapping(value = "/category-edit", method = RequestMethod.POST)
-    public String editCategory(@Valid @ModelAttribute("category") CategoryEditDTO category
-                             ) {
+    public String editCategory(@Valid @ModelAttribute("category") CategoryEditDTO category, BindingResult bindingResult, Model model
+    ) {
+        Category updateCategory = categoryService.findById(category.getCategoryId());
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("image", updateCategory.getImage());
+            model.addAttribute("categoryList", categoryService.findParent());
+            return "admin/category/category-edit";
+        }
+
         categoryService.Update(category);
         return "redirect:/admin/category";
     }

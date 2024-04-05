@@ -24,23 +24,11 @@ public class HomeController {
     private HttpSession session;
     @RequestMapping("/")
     public String index(Model model) {
-        List<Category> phoneCategory = categoryService.findByParentId(1);
-        List<Category> tabletCategory = categoryService.findByParentId(2);
-        List<Category> laptopCategory = categoryService.findByParentId(3);
-        List<Category> computerCategory = categoryService.findByParentId(4);
-        List<Category> cameraCategory = categoryService.findByParentId(5);
-        session.setAttribute("phone",phoneCategory);
-        session.setAttribute("tablet", tabletCategory);
-        session.setAttribute("laptop", laptopCategory);
-        session.setAttribute("computer",computerCategory);
-        session.setAttribute("camera",cameraCategory);
-        List<Category>categoryList= categoryService.findAll().stream().filter(Category::isCategoryStatus).limit(6).collect(Collectors.toList());
-        model.addAttribute("categoryList",categoryList);
         List<Product> productList = productService.findAllActiveStatus(true)
                 .stream()
                 .sorted(Comparator.comparing(Product::getPrice, Comparator.reverseOrder()))
-                .limit(8)
                 .collect(Collectors.toList());
-        return "user/index";
+        model.addAttribute("productList", productList);
+        return "userview/index";
     }
 }

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <th:block th:insert="userview/layouts/head.html"></th:block>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap"
+          rel="stylesheet">
 
 
 </head>
@@ -12,13 +14,13 @@
 <body>
 
 <!-- LOADER -->
-<div class="preloader">
-    <div class="lds-ellipsis">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</div>
+<!--<div class="preloader">-->
+<!--    <div class="lds-ellipsis">-->
+<!--        <span></span>-->
+<!--        <span></span>-->
+<!--        <span></span>-->
+<!--    </div>-->
+<!--</div>-->
 <!-- END LOADER -->
 
 <!-- Home Popup Section -->
@@ -74,8 +76,10 @@
                                 </div>
                                 <div class="product_header_right">
                                     <div class="products_view">
-                                        <a href="javascript:Void(0);" class="shorting_icon grid active"><i class="ti-view-grid"></i></a>
-                                        <a href="javascript:Void(0);" class="shorting_icon list"><i class="ti-layout-list-thumb"></i></a>
+                                        <a href="javascript:Void(0);" class="shorting_icon grid active"><i
+                                                class="ti-view-grid"></i></a>
+                                        <a href="javascript:Void(0);" class="shorting_icon list"><i
+                                                class="ti-layout-list-thumb"></i></a>
                                     </div>
                                     <div class="custom_select">
                                         <select class="form-control form-control-sm">
@@ -90,29 +94,33 @@
                         </div>
                     </div>
                     <div class="row shop_container">
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-6" th:each="pro : ${productList}">
                             <div class="product">
                                 <div class="product_img">
-                                    <a href="shop-product-detail.html">
-                                        <img src="assets/images/product_img1.jpg" alt="product_img1">
+                                    <a th:href="@{/shop-product-detail}">
+                                        <img th:src="${pro.image}" alt="product_img1">
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart">
+                                                <a href="#" class="add-to-cart-btn"
+                                                   th:data-product-id="${pro.productId}">
+                                                    <i class="icon-basket-loaded"></i> Add To Cart
+                                                </a>
+                                            </li>
+                                            <li><a th:href="@{/shop-compare}" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a th:href="@{/shop-quick-view}" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="shop-product-detail.html">Blue Dress For Woman</a></h6>
+                                    <h6 class="product_title"><a th:href="@{/product-detail/{productId}(productId=${pro.productId})}"
+                                                                 th:text="${pro.productName}"></a></h6>
                                     <div class="product_price">
-                                        <span class="price">$45.00</span>
-                                        <del>$55.25</del>
-                                        <div class="on_sale">
-                                            <span>35% Off</span>
-                                        </div>
+                                        <span class="price" th:text="${pro.price}">$45.00</span>
                                     </div>
                                     <div class="rating_wrap">
                                         <div class="rating">
@@ -120,23 +128,9 @@
                                         </div>
                                         <span class="rating_num">(21)</span>
                                     </div>
-                                    <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                    </div>
-                                    <div class="pr_switch_wrap">
-                                        <div class="product_color_switch">
-                                            <span class="active" data-color="#87554B"></span>
-                                            <span data-color="#333333"></span>
-                                            <span data-color="#DA323F"></span>
-                                        </div>
-                                    </div>
-                                    <div class="list_product_action_box">
-                                        <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="#"><i class="icon-heart"></i></a></li>
-                                        </ul>
+                                    <div class="pr_desc" th:text="${pro.description}">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit
+                                            massa enim. Nullam id varius nunc id varius nunc.</p>
                                     </div>
                                 </div>
                             </div>
@@ -149,15 +143,19 @@
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="shop-product-detail.html">Lether Gray Tuxedo</a></h6>
+                                    <h6 class="product_title"><a href="shop-product-detail.html">Lether Gray Tuxedo</a>
+                                    </h6>
                                     <div class="product_price">
                                         <span class="price">$55.00</span>
                                         <del>$95.00</del>
@@ -172,7 +170,8 @@
                                         <span class="rating_num">(15)</span>
                                     </div>
                                     <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit
+                                            massa enim. Nullam id varius nunc id varius nunc.</p>
                                     </div>
                                     <div class="pr_switch_wrap">
                                         <div class="product_color_switch">
@@ -183,9 +182,12 @@
                                     </div>
                                     <div class="list_product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
@@ -201,15 +203,19 @@
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="shop-product-detail.html">woman full sliv dress</a></h6>
+                                    <h6 class="product_title"><a href="shop-product-detail.html">woman full sliv
+                                        dress</a></h6>
                                     <div class="product_price">
                                         <span class="price">$68.00</span>
                                         <del>$99.00</del>
@@ -221,7 +227,8 @@
                                         <span class="rating_num">(25)</span>
                                     </div>
                                     <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit
+                                            massa enim. Nullam id varius nunc id varius nunc.</p>
                                     </div>
                                     <div class="pr_switch_wrap">
                                         <div class="product_color_switch">
@@ -233,9 +240,12 @@
                                     </div>
                                     <div class="list_product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
@@ -250,15 +260,19 @@
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="shop-product-detail.html">light blue Shirt</a></h6>
+                                    <h6 class="product_title"><a href="shop-product-detail.html">light blue Shirt</a>
+                                    </h6>
                                     <div class="product_price">
                                         <span class="price">$69.00</span>
                                         <del>$89.00</del>
@@ -273,7 +287,8 @@
                                         <span class="rating_num">(22)</span>
                                     </div>
                                     <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit
+                                            massa enim. Nullam id varius nunc id varius nunc.</p>
                                     </div>
                                     <div class="pr_switch_wrap">
                                         <div class="product_color_switch">
@@ -284,9 +299,12 @@
                                     </div>
                                     <div class="list_product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
@@ -301,15 +319,19 @@
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="shop-product-detail.html">blue dress for woman</a></h6>
+                                    <h6 class="product_title"><a href="shop-product-detail.html">blue dress for
+                                        woman</a></h6>
                                     <div class="product_price">
                                         <span class="price">$45.00</span>
                                         <del>$55.25</del>
@@ -324,7 +346,8 @@
                                         <span class="rating_num">(21)</span>
                                     </div>
                                     <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit
+                                            massa enim. Nullam id varius nunc id varius nunc.</p>
                                     </div>
                                     <div class="pr_switch_wrap">
                                         <div class="product_color_switch">
@@ -335,9 +358,12 @@
                                     </div>
                                     <div class="list_product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
@@ -353,15 +379,19 @@
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="shop-product-detail.html">Blue casual check shirt</a></h6>
+                                    <h6 class="product_title"><a href="shop-product-detail.html">Blue casual check
+                                        shirt</a></h6>
                                     <div class="product_price">
                                         <span class="price">$55.00</span>
                                         <del>$95.00</del>
@@ -376,7 +406,8 @@
                                         <span class="rating_num">(15)</span>
                                     </div>
                                     <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit
+                                            massa enim. Nullam id varius nunc id varius nunc.</p>
                                     </div>
                                     <div class="pr_switch_wrap">
                                         <div class="product_color_switch">
@@ -386,9 +417,12 @@
                                     </div>
                                     <div class="list_product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
@@ -404,15 +438,19 @@
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="shop-product-detail.html">white black line dress</a></h6>
+                                    <h6 class="product_title"><a href="shop-product-detail.html">white black line
+                                        dress</a></h6>
                                     <div class="product_price">
                                         <span class="price">$68.00</span>
                                         <del>$99.00</del>
@@ -427,7 +465,8 @@
                                         <span class="rating_num">(25)</span>
                                     </div>
                                     <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit
+                                            massa enim. Nullam id varius nunc id varius nunc.</p>
                                     </div>
                                     <div class="pr_switch_wrap">
                                         <div class="product_color_switch">
@@ -438,9 +477,12 @@
                                     </div>
                                     <div class="list_product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
@@ -455,15 +497,19 @@
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="shop-product-detail.html">Men blue jins Shirt</a></h6>
+                                    <h6 class="product_title"><a href="shop-product-detail.html">Men blue jins Shirt</a>
+                                    </h6>
                                     <div class="product_price">
                                         <span class="price">$69.00</span>
                                         <del>$89.00</del>
@@ -478,7 +524,8 @@
                                         <span class="rating_num">(22)</span>
                                     </div>
                                     <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit
+                                            massa enim. Nullam id varius nunc id varius nunc.</p>
                                     </div>
                                     <div class="pr_switch_wrap">
                                         <div class="product_color_switch">
@@ -489,9 +536,12 @@
                                     </div>
                                     <div class="list_product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
@@ -506,15 +556,19 @@
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="shop-product-detail.html">T-Shirt Form Girls</a></h6>
+                                    <h6 class="product_title"><a href="shop-product-detail.html">T-Shirt Form Girls</a>
+                                    </h6>
                                     <div class="product_price">
                                         <span class="price">$45.00</span>
                                         <del>$55.25</del>
@@ -529,7 +583,8 @@
                                         <span class="rating_num">(21)</span>
                                     </div>
                                     <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit
+                                            massa enim. Nullam id varius nunc id varius nunc.</p>
                                     </div>
                                     <div class="pr_switch_wrap">
                                         <div class="product_color_switch">
@@ -540,9 +595,12 @@
                                     </div>
                                     <div class="list_product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
+                                                To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
                                             <li><a href="#"><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
@@ -556,7 +614,8 @@
                                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
                                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#"><i class="linearicons-arrow-right"></i></a></li>
+                                <li class="page-item"><a class="page-link" href="#"><i
+                                        class="linearicons-arrow-right"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -566,17 +625,23 @@
                         <div class="widget">
                             <h5 class="widget_title">Categories</h5>
                             <ul class="widget_categories">
-                                <li><a href="#"><span class="categories_name">Women</span><span class="categories_num">(9)</span></a></li>
-                                <li><a href="#"><span class="categories_name">Top</span><span class="categories_num">(6)</span></a></li>
-                                <li><a href="#"><span class="categories_name">T-Shirts</span><span class="categories_num">(4)</span></a></li>
-                                <li><a href="#"><span class="categories_name">Men</span><span class="categories_num">(7)</span></a></li>
-                                <li><a href="#"><span class="categories_name">Shoes</span><span class="categories_num">(12)</span></a></li>
+                                <li><a href="#"><span class="categories_name">Women</span><span class="categories_num">(9)</span></a>
+                                </li>
+                                <li><a href="#"><span class="categories_name">Top</span><span
+                                        class="categories_num">(6)</span></a></li>
+                                <li><a href="#"><span class="categories_name">T-Shirts</span><span
+                                        class="categories_num">(4)</span></a></li>
+                                <li><a href="#"><span class="categories_name">Men</span><span
+                                        class="categories_num">(7)</span></a></li>
+                                <li><a href="#"><span class="categories_name">Shoes</span><span class="categories_num">(12)</span></a>
+                                </li>
                             </ul>
                         </div>
                         <div class="widget">
                             <h5 class="widget_title">Filter</h5>
                             <div class="filter_price">
-                                <div id="price_filter" data-min="0" data-max="500" data-min-value="50" data-max-value="300" data-price-sign="$"></div>
+                                <div id="price_filter" data-min="0" data-max="500" data-min-value="50"
+                                     data-max-value="300" data-price-sign="$"></div>
                                 <div class="price_range">
                                     <span>Price: <span id="flt_price"></span></span>
                                     <input type="hidden" id="price_first">
@@ -589,32 +654,38 @@
                             <ul class="list_brand">
                                 <li>
                                     <div class="custome-checkbox">
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="Arrivals" value="">
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="Arrivals"
+                                               value="">
                                         <label class="form-check-label" for="Arrivals"><span>New Arrivals</span></label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="custome-checkbox">
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="Lighting" value="">
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="Lighting"
+                                               value="">
                                         <label class="form-check-label" for="Lighting"><span>Lighting</span></label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="custome-checkbox">
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="Tables" value="">
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="Tables"
+                                               value="">
                                         <label class="form-check-label" for="Tables"><span>Tables</span></label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="custome-checkbox">
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="Chairs" value="">
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="Chairs"
+                                               value="">
                                         <label class="form-check-label" for="Chairs"><span>Chairs</span></label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="custome-checkbox">
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="Accessories" value="">
-                                        <label class="form-check-label" for="Accessories"><span>Accessories</span></label>
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="Accessories"
+                                               value="">
+                                        <label class="form-check-label"
+                                               for="Accessories"><span>Accessories</span></label>
                                     </div>
                                 </li>
                             </ul>
@@ -675,8 +746,11 @@
                 <div class="col-md-6">
                     <div class="newsletter_form">
                         <form>
-                            <input type="text" required="" class="form-control rounded-0" placeholder="Enter Email Address">
-                            <button type="submit" class="btn btn-dark rounded-0" name="submit" value="Submit">Subscribe</button>
+                            <input type="text" required="" class="form-control rounded-0"
+                                   placeholder="Enter Email Address">
+                            <button type="submit" class="btn btn-dark rounded-0" name="submit" value="Submit">
+                                Subscribe
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -695,6 +769,25 @@
 <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
 
 <th:block th:insert="userview/layouts/scrip.html"></th:block>
+<script>
 
+    $('.add-to-cart-btn').on('click', function (e) {
+        e.preventDefault();
+        var product = $(this).data('product-id');
+        console.log(product)
+        $.ajax({
+            type: 'GET',
+            url: `/addToCart?productId=` + product,
+            success: function () {
+                console.log('Sản phẩm đã được thêm vào giỏ hàng');
+            },
+            error: function () {
+                console.error('Lỗi khi thêm sản phẩm vào giỏ hàng:');
+
+            }
+        });
+
+    });
+</script>
 </body>
 </html>
