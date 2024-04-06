@@ -108,17 +108,21 @@
                                                     <i class="icon-basket-loaded"></i> Add To Cart
                                                 </a>
                                             </li>
-                                            <li><a th:href="@{/shop-compare}" class="popup-ajax"><i
+                                            <li><a th:href="@{/shop-compare}" class="popup-ajax compare-add"
+                                                   th:data-product-id="${pro.productId}"><i
                                                     class="icon-shuffle"></i></a></li>
                                             <li><a th:href="@{/shop-quick-view}" class="popup-ajax"><i
                                                     class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            <li><a href="#" class="wishlist-add"
+                                                   th:data-product-id="${pro.productId}"><i class="icon-heart"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a th:href="@{/product-detail/{productId}(productId=${pro.productId})}"
-                                                                 th:text="${pro.productName}"></a></h6>
+                                    <h6 class="product_title"><a
+                                            th:href="@{/product-detail/{productId}(productId=${pro.productId})}"
+                                            th:text="${pro.productName}"></a></h6>
                                     <div class="product_price">
                                         <span class="price" th:text="${pro.price}">$45.00</span>
                                     </div>
@@ -783,6 +787,46 @@
             },
             error: function () {
                 console.error('Lỗi khi thêm sản phẩm vào giỏ hàng:');
+
+            }
+        });
+
+    });
+</script>
+<script>
+
+    $('.wishlist-add').on('click', function (e) {
+        e.preventDefault();
+        var product = $(this).data('product-id');
+        console.log(product)
+        $.ajax({
+            type: 'GET',
+            url: `/add-wishlist?productId=` + product,
+            success: function () {
+                console.log('Sản phẩm đã được thêm vào mục yeu thich');
+            },
+            error: function () {
+                console.error('Lỗi khi thêm sản phẩm vào mục yeu thich:');
+
+            }
+        });
+
+    });
+</script>
+<script>
+
+    $('.compare-add').on('click', function (e) {
+        e.preventDefault();
+        var product = $(this).data('product-id');
+        console.log(product)
+        $.ajax({
+            type: 'GET',
+            url: `/add-compare?productId=` + product,
+            success: function () {
+                console.log('Sản phẩm đã được thêm vào mục compare');
+            },
+            error: function () {
+                console.error('Lỗi khi thêm sản phẩm vào mục compare:');
 
             }
         });

@@ -144,11 +144,15 @@
                                         </div>
                                     </div>
                                     <div class="cart_btn">
-                                        <button class="btn btn-fill-out btn-addtocart" type="button"  th:data-product-id="${product.productId}">
-                                            <i class="icon-basket-loaded" ></i> Add to cart</button>
+                                        <button class="btn btn-fill-out btn-addtocart" type="button"
+                                                th:data-product-id="${product.productId}">
+                                            <i class="icon-basket-loaded"></i> Add to cart
+                                        </button>
 
-                                        <a class="add_compare" href="#"><i class="icon-shuffle"></i></a>
-                                        <a class="add_wishlist" href="#"><i class="icon-heart"></i></a>
+                                        <a class="add_compare  compare-add" href="#"
+                                           th:data-product-id="${product.productId}"><i class="icon-shuffle"></i></a>
+                                        <a class="add_wishlist wishlist-add" href="#"
+                                           th:data-product-id="${product.productId}"><i class="icon-heart"></i></a>
                                     </div>
                                 </div>
                                 <hr/>
@@ -286,33 +290,23 @@
                                         </div>
                                         <div class="review_form field_form">
                                             <h5>Add a review</h5>
-                                            <form class="row mt-3">
+                                            <form id="reviewForm" class="row mt-3">
                                                 <div class="form-group col-12 mb-3">
                                                     <div class="star_rating">
-                                                        <span data-value="1"><i class="far fa-star"></i></span>
-                                                        <span data-value="2"><i class="far fa-star"></i></span>
-                                                        <span data-value="3"><i class="far fa-star"></i></span>
-                                                        <span data-value="4"><i class="far fa-star"></i></span>
-                                                        <span data-value="5"><i class="far fa-star"></i></span>
+                                                        <span th:data-value="1"><i class="far fa-star"></i></span>
+                                                        <span th:data-value="2"><i class="far fa-star"></i></span>
+                                                        <span th:data-value="3"><i class="far fa-star"></i></span>
+                                                        <span th:data-value="4"><i class="far fa-star"></i></span>
+                                                        <span th:data-value="5"><i class="far fa-star"></i></span>
                                                     </div>
+                                                    <input type="hidden" id="ratingValue" th:data-rating="rating" value="0">
+                                                </div>
+                                                <div type="hidden" class="productIdAdd" name="productId" th:data-product-id="${product.productId}"></div>
+                                                <div class="form-group col-12 mb-3">
+                                                    <textarea required="required" placeholder="Your review *" class="form-control comment-add" th:data-comment="message" rows="4"></textarea>
                                                 </div>
                                                 <div class="form-group col-12 mb-3">
-                                                    <textarea required="required" placeholder="Your review *"
-                                                              class="form-control" name="message" rows="4"></textarea>
-                                                </div>
-                                                <div class="form-group col-md-6 mb-3">
-                                                    <input required="required" placeholder="Enter Name *"
-                                                           class="form-control" name="name" type="text">
-                                                </div>
-                                                <div class="form-group col-md-6 mb-3">
-                                                    <input required="required" placeholder="Enter Email *"
-                                                           class="form-control" name="email" type="email">
-                                                </div>
-
-                                                <div class="form-group col-12 mb-3">
-                                                    <button type="submit" class="btn btn-fill-out" name="submit"
-                                                            value="Submit">Submit Review
-                                                    </button>
+                                                    <button type="submit" class="btn btn-fill-out submit-comment" name="submit" value="Submit">Submit Review</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -728,13 +722,13 @@
             addToCart(productId, quantity);
         });
 
-        function addToCart(productId,quantity) {
+        function addToCart(productId, quantity) {
             $.ajax({
                 type: 'GET',
                 url: `/addToCartQty?productId=${productId}&quantity=${quantity}`,
                 success: function () {
                     console.log('Sản phẩm đã được thêm vào giỏ hàng');
-                            },
+                },
                 error: function (xhr, status, error) {
                     console.error('Lỗi khi thêm sản phẩm vào giỏ hàng:', error);
 
@@ -744,6 +738,85 @@
     });
 </script>
 
+<script>
+
+    $('.wishlist-add').on('click', function (e) {
+        e.preventDefault();
+        var product = $(this).data('product-id');
+        console.log(product)
+        $.ajax({
+            type: 'GET',
+            url: `/add-wishlist?productId=` + product,
+            success: function () {
+                console.log('Sản phẩm đã được thêm vào mục yeu thich');
+            },
+            error: function () {
+                console.error('Lỗi khi thêm sản phẩm vào mục yeu thich:');
+
+            }
+        });
+
+    });
+</script>
+<script>
+
+    $('.compare-add').on('click', function (e) {
+        e.preventDefault();
+        var product = $(this).data('product-id');
+        console.log(product)
+        $.ajax({
+            type: 'GET',
+            url: `/add-compare?productId=` + product,
+            success: function () {
+                console.log('Sản phẩm đã được thêm vào mục compare');
+            },
+            error: function () {
+                console.error('Lỗi khi thêm sản phẩm vào mục compare:');
+
+            }
+        });
+
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Xử lý khi người dùng nhấn nút submit trên biểu mẫu
+        $('#reviewForm').submit(function(e) {
+            e.preventDefault(); // Ngăn chặn việc gửi biểu mẫu và tải lại trang
+
+            // Lấy giá trị đánh giá, productId và comment từ các thành phần trên biểu mẫu
+            var rating = $('#ratingValue').val();
+            var productId = $('.productIdAdd').data('product-id');
+            var comment = $('.comment-add').val();
+            console.log(rating);
+            console.log(productId);
+            console.log(comment);
+
+            // Gửi dữ liệu lên server thông qua Ajax
+            $.ajax({
+                type: 'GET',
+                url: `/add-comment-ajax?productId=${productId}&rating=${rating}&comment=${comment}`, // Đường dẫn của controller trong Spring Boot để xử lý dữ liệu đánh giá
+                success: function(response) {
+                    alert('Đánh giá đã được gửi thành công!');
+                    // Cập nhật giao diện người dùng nếu cần
+                },
+                error: function(xhr, status, error) {
+                    alert('Lỗi khi gửi đánh giá. Vui lòng thử lại sau.');
+                    console.error('Lỗi khi gửi đánh giá:', error);
+                }
+            });
+        });
+
+        // Xử lý khi người dùng click vào sao để đánh giá
+        $('.star_rating span').on('click', function() {
+            var value = $(this).data('value'); // Lấy giá trị đánh giá từ thuộc tính data-value của sao
+            $('#ratingValue').val(value); // Đặt giá trị đánh giá vào input hidden
+
+
+        });
+    });
+</script>
 
 
 </body>
