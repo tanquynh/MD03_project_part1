@@ -8,9 +8,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ra.project_md03.model.dto.user.UserLoginDTO;
 import ra.project_md03.model.entity.CartItem;
 import ra.project_md03.model.entity.CartItemDB;
+import ra.project_md03.model.entity.Coupons;
 import ra.project_md03.model.entity.Product;
 import ra.project_md03.model.service.cart.CartDBServiceImpl;
 import ra.project_md03.model.service.cart.CartItemDBService;
+import ra.project_md03.model.service.coupons.CouponsService;
+import ra.project_md03.model.service.coupons.CouponsServiceImpl;
 import ra.project_md03.model.service.product.ProductServiceImpl;
 import ra.project_md03.model.service.wishlist.WishlistService;
 
@@ -29,6 +32,8 @@ public class CartItemController {
     private HttpSession session;
     @Autowired
     private WishlistService wishlistService;
+    @Autowired
+    private CouponsServiceImpl couponsService;
 
     @RequestMapping("/cart")
     public String cart(Model model) {
@@ -36,16 +41,52 @@ public class CartItemController {
         if (userLoginDTO != null) {
             List<CartItemDB> cartItemList = cartItemDBService.getCartUserLogin(cartItemDBService.getCartID(userLoginDTO.getUserId()));
             model.addAttribute("carts", cartItemList);
+            session.setAttribute("cartItem", cartItemList);
             int cartTotal = cartItemDBService.getCartTotal(cartItemList);
             model.addAttribute("cartTotal", cartTotal);
-
+            model.addAttribute("totalCart", cartTotal);
         } else {
             return "redirect:/login?action=cart";
         }
-        return "userview/cart";
+        return "userview/shop-cart";
     }
 
-    @RequestMapping("/addCart")
+    @RequestMapping(value = "/cart", method = RequestMethod.POST)
+    public String cart(@RequestParam(name = "couponCode", required = false) String couponCode, Model model) {
+        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginUser");
+        if (userLoginDTO != null) {
+            List<CartItemDB> cartItemList = cartItemDBService.getCartUserLogin(cartItemDBService.getCartID(userLoginDTO.getUserId()));
+            model.addAttribute("carts", cartItemList);
+            int cartTotal = cartItemDBService.getCartTotal(cartItemList);
+            model.addAttribute("cartTotal", cartTotal);
+            session.setAttribute("cartTotal",cartTotal);
+            List<Coupons> couponsList = couponsService.findAll();
+            model.addAttribute("couponsList", couponsList);
+            if (couponCode != null && !couponCode.isEmpty()) {
+                Coupons appliedCoupon = couponsList.stream()
+                        .filter(coupon -> coupon.getCode().equals(couponCode))
+                        .findFirst()
+                        .orElse(null);
+                if (appliedCoupon != null) {
+                    model.addAttribute("appliedCoupon", (cartTotal * Integer.parseInt(appliedCoupon.getDiscount().replace("%", ""))) / 100);
+                    model.addAttribute("totalCart", (cartTotal - (cartTotal * Integer.parseInt(appliedCoupon.getDiscount().replace("%", ""))) / 100));
+                    session.setAttribute("totalCart", (cartTotal - (cartTotal * Integer.parseInt(appliedCoupon.getDiscount().replace("%", ""))) / 100));
+                    session.setAttribute("coupons", (cartTotal * Integer.parseInt(appliedCoupon.getDiscount().replace("%", ""))) / 100);
+                    ;
+                }
+                return "userview/shop-cart";
+            }
+            model.addAttribute("appliedCoupon", 0);
+            model.addAttribute("totalCart", cartTotal);
+            session.setAttribute("coupons", 0);
+            session.setAttribute("totalCart", cartTotal);
+        } else {
+            return "redirect:/login?action=cart";
+        }
+        return "userview/shop-cart";
+    }
+
+    @RequestMapping("/addToCartQty")
     public String addCart(@RequestParam("quantity") Integer quantity,
                           @RequestParam("productId") Integer id) {
         UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginUser");
@@ -64,19 +105,19 @@ public class CartItemController {
         }
     }
 
-    @RequestMapping(value = "/add-cart-quick", method = RequestMethod.POST)
-    public String addCartQuick(@RequestParam("productId") Integer productId) {
+    @RequestMapping(value = "/addToCart")
+    @ResponseBody
+    public String addToCart(@RequestParam("productId") Integer productId) {
         UserLoginDTO userLogin = (UserLoginDTO) session.getAttribute("userLoginUser");
         if (userLogin == null) {
             return "redirect:/login?action=product";
         } else {
             CartItemDB cartItemDB = new CartItemDB();
             Product product = productService.findById(productId);
-
             cartItemDB.setCartId(cartItemDBService.getCartID(userLogin.getUserId()));
             cartItemDB.setProduct(product);
             cartItemDB.setQuantity(1);
-            cartItemDBService.addToCart(cartItemDB, cartItemDB.getCartId());
+            cartItemDBService.save(cartItemDB);
         }
         return "redirect:/product";
     }
@@ -93,7 +134,7 @@ public class CartItemController {
             cartItemDB.setCartId(cartItemDBService.getCartID(userLogin.getUserId()));
             cartItemDB.setProduct(product);
             cartItemDB.setQuantity(1);
-            cartItemDBService.addToCart(cartItemDB, cartItemDB.getCartId());
+            cartItemDBService.save(cartItemDB);
             wishlistService.delete(productId);
         }
         return "redirect:/wishlist";
@@ -102,7 +143,6 @@ public class CartItemController {
     @GetMapping("/cart-delete/{id}")
     public String deleteCartItem(@PathVariable("id") Integer productId) {
         UserLoginDTO userLogin = (UserLoginDTO) session.getAttribute("userLoginUser");
-
         cartItemDBService.delete(productId, cartItemDBService.getCartID(userLogin.getUserId()));
         return "redirect:/cart";
     }

@@ -65,7 +65,7 @@ public class AdminUserController {
                 redirectAttributes.addFlashAttribute("message", "Unblocked user!");
             }
         }
-        return "redirect:/admin/user";
+        return "redirect:/admin/users";
     }
 
 }

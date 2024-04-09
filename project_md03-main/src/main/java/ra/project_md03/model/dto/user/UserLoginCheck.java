@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 public class UserLoginCheck {
     @NotEmpty(message = "Please fill username!")
     @Pattern(regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "Please include @ in email!")
+
     private String email;
     @NotEmpty(message = "Please fill username!")
     @Size(min = 4, max = 12, message = "Password's length is from 4 to 12")

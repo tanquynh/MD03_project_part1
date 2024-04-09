@@ -20,19 +20,19 @@ public class AdminController {
     private ProductServiceImpl productService;
     @Autowired
     private CategoryServiceImpl categoryService;
-    @Autowired
-    private OrderService orderService;
+//    @Autowired
+//    private OrderService orderService;
 
     @RequestMapping("")
     public String index(Model model) {
         int categoryCount = categoryService.findAll().size();
         int productCount = productService.findAll().size();
         int userCount = userService.findAll().size();
-        int orderCount = orderService.findAll().size();
+//        int orderCount = orderService.findAll().size();
         model.addAttribute("categoryCount",categoryCount);
         model.addAttribute("productCount",productCount);
         model.addAttribute("userCount",userCount);
-        model.addAttribute("orderCount",orderCount);
+//        model.addAttribute("orderCount",orderCount);
         return "/admin/index";
     }
 

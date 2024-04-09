@@ -26,7 +26,7 @@ public class CompareController {
     private HttpSession session;
 
     @RequestMapping("/compare")
-    public String wishlist(Model model) {
+    public String compare(Model model) {
         UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginUser");
         if (userLoginDTO != null) {
             List<Compare> compareList = compareService.findByUserId(userLoginDTO.getUserId());

@@ -32,9 +32,7 @@ public class ProductEditDTO {
     private int brandId;
     @PositiveOrZero(message = "Stock must be greater than or is 0!")
     private int stock;
-    @FileNotNull(message = "Image must not be null!")
     private MultipartFile image;
     private int categoryId;
-    @FileNotNull(message = "Image must not be null!")
     private List<MultipartFile> subImage;
 }

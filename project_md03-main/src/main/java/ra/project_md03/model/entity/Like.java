@@ -9,8 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-class Like {
+public class Like {
     private int likeId;
     private int userId;
-    private  int productId;
+    private int productId;
 }

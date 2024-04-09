@@ -40,33 +40,31 @@ public class ProductUserController {
     @RequestMapping({"/product", "/product/{id}"})
     public String pagination(Model model, @PathVariable(value = "id", required = false) Integer page,
                              @RequestParam(value = "search-name", required = false) String searchName) {
-//        int currentPage = (page != 1 && page >= 1) ? page : 1;
-//        List<Product> productList = new ArrayList<>();
-//        if (searchName != null & searchName.isEmpty()) {
-//            productList = productService.searchActive(searchName, 8, currentPage);
-//            int totalPageSearch = productService.totalPageSearch(searchName, 8);
-//            model.addAttribute("totalPageSearch", totalPageSearch);
-//            int totalProductSearch = productService.totalProductSearchActive(searchName);
-//            model.addAttribute("totalProductSearch", totalProductSearch);
-//        } else {
-//            productList = productService.pagination(8, currentPage);
-//            int totalPage = productService.totalPageActive(8, currentPage);
-//            model.addAttribute("totalPage", totalPage);
-//        }
-//        List<Category> categoryList = categoryService.findAll().stream().filter(Category::isCategoryStatus).collect(Collectors.toList());
-//        model.addAttribute("categoryList", categoryList);
-//        model.addAttribute("currentPage", currentPage);
-//        model.addAttribute("productList", productList);
-
-//        // Luu so luong san pham cua userLogin len session
-//        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginUser");
-//        if (userLoginDTO != null) {
-//            List<CartItemDB> list = cartItemDBService.getCartUserLogin(cartItemDBService.getCartID(userLoginDTO.getUserId()));
-//            int totalProduct = list.stream().mapToInt(CartItemDB::getQuantity).sum();
-//            session.setAttribute("cartTotalProduct", totalProduct);
-//        }
-        List<Product> productList = productService.findAll();
+        int currentPage = (page != 1 && page >= 1) ? page : 1;
+        List<Product> productList = new ArrayList<>();
+        if (searchName != null & searchName.isEmpty()) {
+            productList = productService.searchActive(searchName, 8, currentPage);
+            int totalPageSearch = productService.totalPageSearch(searchName, 8);
+            model.addAttribute("totalPageSearch", totalPageSearch);
+            int totalProductSearch = productService.totalProductSearchActive(searchName);
+            model.addAttribute("totalProductSearch", totalProductSearch);
+        } else {
+            productList = productService.pagination(8, currentPage);
+            int totalPage = productService.totalPageActive(8, currentPage);
+            model.addAttribute("totalPage", totalPage);
+        }
+        List<Category> categoryList = categoryService.findAll().stream().filter(Category::isCategoryStatus).collect(Collectors.toList());
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("currentPage", currentPage);
         model.addAttribute("productList", productList);
+
+        // Luu so luong san pham cua userLogin len session
+        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginUser");
+        if (userLoginDTO != null) {
+            List<CartItemDB> list = cartItemDBService.getCartUserLogin(cartItemDBService.getCartID(userLoginDTO.getUserId()));
+            int totalProduct = list.stream().mapToInt(CartItemDB::getQuantity).sum();
+            session.setAttribute("cartTotalProduct", totalProduct);
+        }
         return "userview/shop-left-sidebar";
     }
 

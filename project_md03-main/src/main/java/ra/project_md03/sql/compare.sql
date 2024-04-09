@@ -1,20 +1,30 @@
 
 use md03_project_database;
-create table COMPARE
-(
-    id         int primary key auto_increment,
-    user_id    int,
-    foreign key (user_id) references user (id),
-    product_id int,
-    foreign key (product_id) references product (id)
+CREATE TABLE COMPARE (
+                         id INT PRIMARY KEY AUTO_INCREMENT,
+                         user_id INT,
+                         FOREIGN KEY (user_id) REFERENCES user(id),
+                         product_id INT,
+                         FOREIGN KEY (product_id) REFERENCES product(id)
 );
 
+
 DELIMITER //
-create procedure PROC_COMPARE_FIND_BY_USER_ID(IN user_id_in int)
-begin
-select * from COMPARE WHERE user_id = user_id_in ;
-end //
+
+CREATE PROCEDURE PROC_COMPARE_FIND_NEWEST_BY_USER_ID(IN user_id_in INT)
+BEGIN
+    SELECT *
+    FROM (
+             SELECT *
+             FROM COMPARE
+             WHERE user_id = user_id_in
+             ORDER BY id DESC -- Sắp xếp theo id giảm dần
+             LIMIT 3
+         ) AS newest_compare;
+
+END //
 DELIMITER ;
+
 
 DELIMITER //
 create procedure PROC_COMPARE_ADD(IN user_id_in int, product_id_in int)

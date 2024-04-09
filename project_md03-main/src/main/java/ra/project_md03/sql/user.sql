@@ -17,7 +17,11 @@ BEGIN
     SELECT * FROM user;
 end //
 DELIMITER  ;
-
+DELIMITER //
+CREATE PROCEDURE PROC_DELETE_USER_CART_ITEM(IN user_cart_id int)
+begin
+    DELETE FROM ITEM WHERE cart_id = user_cart_id;
+end //
 DELIMITER //
 create procedure PROC_USER_ADD(IN name_in varchar(100), email_in varchar(50), address_in text, phone_in varchar(50),
                                password_in text)

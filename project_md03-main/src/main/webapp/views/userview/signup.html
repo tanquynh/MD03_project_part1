@@ -4,9 +4,36 @@
     <th:block th:insert="userview/layouts/head.html"></th:block>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        .error-message {
+            color: #dc3545; /* Màu đỏ phù hợp với đường viền khi có lỗi */
+            font-size: 0.875rem; /* Kích thước font nhỏ hơn */
+            margin-top: 0.25rem; /* Khoảng cách giữa trường và thông báo lỗi */
+        }
 
+        .border-danger input {
+            border-color: #dc3545 !important; /* Đổi màu viền của trường nhập liệu thành đỏ */
+            border-width: 1px; /* Độ dày của đường viền */
+        }
+        .input-with-icon {
+            position: relative;
+        }
 
+        .input-with-icon input {
+            padding-right: 30px; /* Để chừa chỗ cho icon */
+        }
+
+        .input-with-icon .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -63,46 +90,64 @@
                             <div class="heading_s1">
                                 <h3>Create an Account</h3>
                             </div>
-                            <form method="post" th:action="@{/signup-post}" th:object="${user}" >
+                            <form method="post" th:action="@{/signup-post}" th:object="${user}">
 
                                 <div class="form-group mb-3">
-                                    <input type="text" th:field="*{username}" required="" class="form-control" name="name" placeholder="Enter Your Name">
+                                    <input type="text" th:field="*{username}" required="" class="form-control"
+                                           name="name"
+                                           th:classappend="${#fields.hasErrors('username')} ? 'border-danger' : ''"
+                                           placeholder="Enter Your Name">
+                                    <div class="error-message "
+                                         th:if="${#fields.hasErrors('username')}"
+                                         th:errors="*{username}"></div>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input type="text" th:field="*{email}" required="" class="form-control" name="email" placeholder="Enter Your Email">
+                                    <input type="text" th:field="*{email}" required="" class="form-control" name="email"
+                                           th:classappend="${#fields.hasErrors('username')} ? 'border-danger' : ''" placeholder="Enter Your Email">
+                                    <div class="error-message "
+                                         th:if="${#fields.hasErrors('email')}"
+                                         th:errors="*{email}"></div>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input type="text" th:field="*{address}" required="" class="form-control" name="email" placeholder="Enter Your Address">
+                                    <input type="text" th:field="*{address}" required="" class="form-control"
+                                           name="address" placeholder="Enter Your Address">
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input type="text" th:field="*{phone}" required="" class="form-control" name="email" placeholder="Enter Your Phone">
+                                    <input type="text" th:field="*{phone}" required="" class="form-control" name="phone"
+                                           placeholder="Enter Your Phone">
+                                </div>
+                                <div class="form-group mb-3 input-with-icon">
+                                    <input class="form-control" th:field="*{password}" required="" type="password" id="passwordInput" name="password" placeholder="Password">
+                                    <span class="toggle-password" onclick="togglePasswordVisibility('passwordInput', 'toggle-icon-1')"><i id="toggle-icon-1" class="fa fa-eye-slash"></i></span>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input class="form-control" th:field="*{password}" required="" type="password" name="password" placeholder="Password">
-                                </div>
-                                <div class="form-group mb-3">
-                                    <input class="form-control" required="" type="password" name="confirm-password" placeholder="Confirm Password">
+                                    <input class="form-control" required="" type="password" id="passwordInput1" name="password" placeholder="Password">
+                                    <span class="toggle-password" onclick="togglePasswordVisibility('passwordInput1', 'toggle-icon-2')"><i id="toggle-icon-2" class="fa fa-eye-slash"></i></span>
                                 </div>
                                 <div class="login_footer form-group mb-3">
                                     <div class="chek-form">
                                         <div class="custome-checkbox">
-                                            <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox2" value="">
+                                            <input class="form-check-input" type="checkbox" name="checkbox"
+                                                   id="exampleCheckbox2" value="">
                                             <label class="form-check-label" for="exampleCheckbox2"><span>I agree to terms &amp; Policy.</span></label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <button type="submit" class="btn btn-fill-out btn-block" >Register</button>
+                                    <button type="submit" class="btn btn-fill-out btn-block">Register</button>
                                 </div>
                             </form>
                             <div class="different_login">
                                 <span> or</span>
                             </div>
                             <ul class="btn-login list_none text-center">
-                                <li><a href="#" class="btn btn-facebook"><i class="ion-social-facebook"></i>Facebook</a></li>
-                                <li><a href="#" class="btn btn-google"><i class="ion-social-googleplus"></i>Google</a></li>
+                                <li><a href="#" class="btn btn-facebook"><i class="ion-social-facebook"></i>Facebook</a>
+                                </li>
+                                <li><a href="#" class="btn btn-google"><i class="ion-social-googleplus"></i>Google</a>
+                                </li>
                             </ul>
-                            <div class="form-note text-center">Already have an account? <a href="/login">Log in</a></div>
+                            <div class="form-note text-center">Already have an account? <a href="/login">Log in</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,8 +168,11 @@
                 <div class="col-md-6">
                     <div class="newsletter_form">
                         <form>
-                            <input type="text" required="" class="form-control rounded-0" placeholder="Enter Email Address">
-                            <button type="submit" class="btn btn-dark rounded-0" name="submit" value="Submit">Subscribe</button>
+                            <input type="text" required="" class="form-control rounded-0"
+                                   placeholder="Enter Email Address">
+                            <button type="submit" class="btn btn-dark rounded-0" name="submit" value="Submit">
+                                Subscribe
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -143,6 +191,21 @@
 <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
 
 <th:block th:insert="userview/layouts/scrip.html"></th:block>
+<script>
+    function togglePasswordVisibility(inputId, toggleIconId) {
+        var passwordInput = document.getElementById(inputId);
+        var toggleIcon = document.getElementById(toggleIconId);
 
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye");
+        } else {
+            passwordInput.type = "password";
+            toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash");
+        }
+    }
+</script>
 </body>
 </html>

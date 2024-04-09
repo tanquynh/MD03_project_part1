@@ -1,13 +1,12 @@
-package ra.project_md03.model.service.like;
+package ra.project_md03.model.dao.like;
 
-
+import org.springframework.stereotype.Component;
 import ra.project_md03.model.entity.Like;
-import ra.project_md03.model.entity.Wishlist;
 
 import java.util.List;
 import java.util.Map;
 
-public interface LikeService {
+public interface LikeDao {
     Map<Integer, Integer> findAll();
     void save(Integer userId, Integer productId);
     Integer countLikeInProduct(Integer productId);

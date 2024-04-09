@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ra.project_md03.model.dto.user.UserLoginCheck;
 import ra.project_md03.model.dto.user.UserLoginDTO;
 import ra.project_md03.model.dto.user.UserRegisterDTO;
@@ -18,8 +19,8 @@ import javax.validation.Valid;
 public class UserController {
     @Autowired
     private UserService userService;
-
-
+    @Autowired
+    private HttpSession session;
 
     @RequestMapping("/index")
     public String index() {
@@ -33,9 +34,44 @@ public class UserController {
         return "userview/signup";
     }
 
+    //    @RequestMapping(value = "/signup-post", method = RequestMethod.POST)
+//    public String signupPost(@Valid @ModelAttribute("user") UserRegisterDTO userRegisterDTO, BindingResult result, @RequestParam("confirm-password") String confirmedPassword, RedirectAttributes redirectAttributes) {
+//        if (result.hasErrors()) {
+//            return "userview/signup";
+//        }
+//        if (userService.findByMail(userRegisterDTO.getEmail()) != null) {
+//            redirectAttributes.addFlashAttribute("errEmail", "Email has already been existed!");
+//            return "redirect:/signup";
+//        }
+//        if (!userService.checkConfirmedPassword(userRegisterDTO.getPassword(), confirmedPassword)) {
+//            redirectAttributes.addFlashAttribute("errRePassword", "Incorrect password!");
+//            return "redirect:/signup";
+//        }
+//        if (userService.register(userRegisterDTO)) {
+//            redirectAttributes.addFlashAttribute("message", "Create account successfully!");
+//        }
+//        return "redirect:/login";
+//    }
     @RequestMapping(value = "/signup-post", method = RequestMethod.POST)
-    public String signupPost(@ModelAttribute("user") UserRegisterDTO userRegisterDTO) {
-        userService.register(userRegisterDTO);
+    public String signupPost(@Valid @ModelAttribute("user") UserRegisterDTO userRegisterDTO, BindingResult result, @RequestParam("confirm-password") String confirmedPassword, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            return "userview/signup"; // Hiển thị lại form nếu có lỗi validation
+        }
+
+        if (userService.findByMail(userRegisterDTO.getEmail()) != null) {
+            redirectAttributes.addFlashAttribute("errEmail", "Email has already been registered!");
+            return "redirect:/signup";
+        }
+
+        if (!userService.checkConfirmedPassword(userRegisterDTO.getPassword(), confirmedPassword)) {
+            redirectAttributes.addFlashAttribute("errRePassword", "Incorrect password confirmation!");
+            return "redirect:/signup";
+        }
+
+        if (userService.register(userRegisterDTO)) {
+            redirectAttributes.addFlashAttribute("message", "Account created successfully!");
+        }
+
         return "redirect:/login";
     }
 
@@ -70,18 +106,29 @@ public class UserController {
                         case "wishlist":
                             return "redirect:/wishlist";
                         case "profile":
-                            return "redirect:/my-account";
+                            return "redirect:/profile";
                         default:
                             return "redirect:/";
                     }
                 } else {
                     session.setAttribute("userLoginAdmin", userLogin);
                     return "redirect:/admin";
-
                 }
             }
         }
         return "redirect:/login";
     }
 
+    @GetMapping("/logout-user")
+    public String logoutUser() {
+        session.removeAttribute("userLoginUser");
+        session.removeAttribute("cartTotalProduct");
+        return "redirect:/?error=true";
+    }
+
+    @GetMapping("/logout-admin")
+    public String logoutAdmin() {
+        session.removeAttribute("userLoginAdmin");
+        return "redirect:/?error=true";
+    }
 }

@@ -25,7 +25,7 @@ public class CompareDaoImpl implements CompareService {
         List<Compare> compares = new ArrayList<>();
         try {
             connection = ConnectionDatabase.openConnection();
-            CallableStatement statement = connection.prepareCall("{CALL PROC_COMPARE_FIND_BY_USER_ID(?)}");
+            CallableStatement statement = connection.prepareCall("{CALL PROC_COMPARE_FIND_NEWEST_BY_USER_ID(?)}");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {

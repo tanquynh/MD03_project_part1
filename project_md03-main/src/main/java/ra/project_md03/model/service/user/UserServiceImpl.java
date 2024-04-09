@@ -6,9 +6,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ra.project_md03.model.dao.user.UserDao;
+import ra.project_md03.model.dto.user.UserEdit;
 import ra.project_md03.model.dto.user.UserLoginDTO;
 import ra.project_md03.model.dto.user.UserRegisterDTO;
+import ra.project_md03.model.entity.Category;
 import ra.project_md03.model.entity.User;
+import ra.project_md03.model.service.UploadService;
 
 import java.util.List;
 
@@ -16,7 +19,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
-
+    @Autowired
+    private UploadService uploadService;
     @Override
     public List<User> findAll() {
         return userDao.findAll();
@@ -24,6 +28,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean saveOrUpdate(User user) {
+        return userDao.saveOrUpdate(user);
+    }
+
+    public boolean update(UserEdit userEdit) {
+        User user = new User();
+        user.setUserId(userEdit.getId());
+        user.setUsername(userEdit.getUsername());
+        user.setPassword(userEdit.getPassword());
+        user.setEmail(userEdit.getEmail());
+        user.setAddress(userEdit.getAddress());
+        user.setPhone(userEdit.getPhone());
+        //upload anh
+        if (userEdit.getImg().getSize() > 0) {
+            String imageUrl = uploadService.uploadFileToServer(userEdit.getImg());
+            user.setAvatar(imageUrl);
+        }
+        userDao.saveOrUpdate(user);
         return userDao.saveOrUpdate(user);
     }
 
@@ -82,8 +103,8 @@ public class UserServiceImpl implements UserService {
     public UserLoginDTO login(String email, String password) {
         User user = userDao.findByMail(email);
         if (user != null) {
-            if (BCrypt.checkpw(password, user.getPassword()) &&user.isUserStatus()) {
-                UserLoginDTO userLogin=new UserLoginDTO();
+            if (BCrypt.checkpw(password, user.getPassword()) && user.isUserStatus()) {
+                UserLoginDTO userLogin = new UserLoginDTO();
                 userLogin.setUserId(user.getUserId());
                 userLogin.setUsername(user.getUsername());
                 userLogin.setEmail(user.getEmail());
@@ -97,16 +118,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean checkPassword( String password,User user) {
+    public Boolean checkPassword(String password, User user) {
 //        if(BCrypt.checkpw(user.getPassword(),password)){
 //            return true;
 //        }
 //        return false;
-        return BCrypt.checkpw(password,user.getPassword());
+        return BCrypt.checkpw(password, user.getPassword());
     }
 
     @Override
-    public Boolean checkConfirmedPassword(String password,String confirmedPassword) {
+    public Boolean checkConfirmedPassword(String password, String confirmedPassword) {
         return password.equals(confirmedPassword);
     }
 

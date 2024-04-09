@@ -29,22 +29,22 @@
                 <div class="col-md-6">
                     <div class="text-center text-md-end">
                         <ul class="header_list">
-                            <li><a href="/compare>"><i class="ti-control-shuffle"></i><span>Compare</span></a></li>
-                            <li><a href="/wishlist"><i class="ti-heart"></i><span>Wishlist</span></a></li>
-<!--                            <li>-->
-<!--                                <a th:if="${session.userLoginUser != null}" th:href="@{/logout}"-->
-<!--                                  >-->
-<!--                                    <i class="ti-user"></i>-->
-<!--                                    <span>-->
-<!--                                        <img th:if="${session.userLoginUser != null}"-->
-<!--                                             th:src="${session.userLoginUser.avatar}"-->
-<!--                                             th:alt="User Avatar" width="20px" height="20px"-->
-<!--                                             style="border-radius: 50%;"/>-->
-<!--                                        <span th:text="${session.userLoginUser != null ? session.userLoginUser.username : 'Login'}"></span>-->
-<!--                                    </span>-->
-<!--                                </a>-->
-<!--                            </li>-->
-
+                            <li><a th:href="@{/compare}"><i class="ti-control-shuffle"></i><span>Compare</span></a></li>
+                            <li><a th:href="@{/wishlist}"><i class="ti-heart"></i><span>Wishlist</span></a></li>
+                            <li>
+                                <i class="ti-user"></i>
+                                <span th:if="${#ctx.session.userLoginUser} != null">
+<!--                                    <img th:src="${#ctx.session.userLoginUser } != null ? ${#ctx.session.userLoginUser.avatar} : 'https://firebasestorage.googleapis.com/v0/b/project-md03-javaweb.appspot.com/o/human.jpg?alt=media&token=9eb4c0d8-74fa-433e-894d-c152119c288c'"-->
+<!--                                         th:alt="User Avatar" width="20px" height="20px" style="border-radius: 50%;"/>-->
+                                                                        <span th:text="${#ctx.session.userLoginUser }!= null ? ${#ctx.session.userLoginUser.username} : ''"></span>
+                                </span>
+                                <span th:if="${#ctx.session.userLoginUser }== null">
+                                    <a th:href="@{/login}"><span>Login</span></a>
+                                </span>
+                                <span th:unless="${#ctx.session.userLoginUser }== null">
+                                    <a th:href="@{/logout-user}">Logout</a>
+                                </span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -66,64 +66,77 @@
                     <ul class="navbar-nav">
 
                         <li class="dropdown">
-                            <a data-bs-toggle="dropdown active" class="nav-link nav-item " href="#">Home</a>
+                            <a data-bs-toggle="dropdown active" class="nav-link nav-item " th:href="@{/}">Home</a>
 
                         </li>
                         <li class="dropdown">
-                            <a class=" nav-item  nav-link " href="shop-left-sidebar.html">Shop</a>
+                            <a class=" nav-item  nav-link " th:href="@{/product}">Shop</a>
 
                         </li>
                         <li class="dropdown dropdown-mega-menu">
-                            <a class=" nav-link" href="#" data-bs-toggle="dropdown">My Account</a>
+                            <a class=" nav-link" th:href="@{/profile}">My Account</a>
 
                         </li>
                         <li class="dropdown">
-                            <a class=" nav-link" href="#" data-bs-toggle="dropdown">About</a>
+                            <a class=" nav-link" th:href="@{/about}">About</a>
 
                         </li>
 
-                        <li><a class="nav-link nav_item" href="contact.html">Contact Us</a></li>
+                        <li><a class="nav-link nav_item" th:href="@{/contact}">Contact Us</a></li>
                     </ul>
                 </div>
                 <ul class="navbar-nav attr-nav align-items-center">
-                    <li><a href="javascript:void(0);" class="nav-link search_trigger"><i
-                            class="linearicons-magnifier"></i></a>
-                        <div class="search_wrap">
-                            <span class="close-search"><i class="ion-ios-close-empty"></i></span>
-                            <form>
-                                <input type="text" placeholder="Search" class="form-control" id="search_input">
-                                <button type="submit" class="search_icon"><i class="ion-ios-search-strong"></i></button>
-                            </form>
-                        </div>
-                        <div class="search_overlay"></div>
-                    </li>
-                    <li class="dropdown cart_dropdown"><a class="nav-link cart_trigger" href="#"
-                                                          data-bs-toggle="dropdown"><i
-                            class="linearicons-cart"></i><span class="cart_count">2</span></a>
-                        <div class="cart_box dropdown-menu dropdown-menu-right">
-                            <ul class="cart_list">
-                                <li>
-                                    <a href="#" class="item_remove"><i class="ion-close"></i></a>
-                                    <a href="#"><img th:src="@{/user/images/cart_thamb1.jpg}" alt="cart_thumb1">Variable
-                                        product 001</a>
-                                    <span class="cart_quantity"> 1 x <span class="cart_amount"> <span
-                                            class="price_symbole">$</span></span>78.00</span>
-                                </li>
-                                <li>
-                                    <a href="#" class="item_remove"><i class="ion-close"></i></a>
-                                    <a href="#"><img th:src="@{/user/images/cart_thamb2.jpg}" alt="cart_thumb2">Ornare
-                                        sed consequat</a>
-                                    <span class="cart_quantity"> 1 x <span class="cart_amount"> <span
-                                            class="price_symbole">$</span></span>81.00</span>
-                                </li>
-                            </ul>
-                            <div class="cart_footer">
-                                <p class="cart_total"><strong>Subtotal:</strong> <span class="cart_price"> <span
-                                        class="price_symbole">$</span></span>159.00</p>
-                                <p class="cart_buttons"><a href="shop-cart.html" class="btn btn-fill-line view-cart">View
-                                    Cart</a><a href="checkout.html" class="btn btn-fill-out checkout">Checkout</a></p>
-                            </div>
-                        </div>
+                    <!--                    <li><a href="javascript:void(0);" class="nav-link search_trigger"><i-->
+                    <!--                            class="linearicons-magnifier"></i></a>-->
+                    <!--                        <div class="search_wrap">-->
+                    <!--                            <span class="close-search"><i class="ion-ios-close-empty"></i></span>-->
+                    <!--                            <form>-->
+                    <!--                                <input type="text" placeholder="Search" class="form-control" id="search_input">-->
+                    <!--                                <button type="submit" class="search_icon"><i class="ion-ios-search-strong"></i></button>-->
+                    <!--                            </form>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="search_overlay"></div>-->
+                    <!--                    </li>-->
+                    <li class="dropdown cart_dropdown">
+                        <a class="nav-link cart_trigger" th:href="@{/cart}"
+                        >
+                            <i
+                                    class="linearicons-cart"></i>
+                            <!--                        <span class="cart_count"-->
+                            <!--                              th:if="${#httpSession.getAttribute('userLoginUser') != null}"-->
+                            <!--                              th:text="${cartItem != null && cartItem.size() > 0 ? cartItem.size() : '0'}">0</span>-->
+                        </a>
+                        <!--                        <div th:if="${#httpSession.getAttribute('userLoginUser') != null}"-->
+                        <!--                             class="cart_box dropdown-menu dropdown-menu-right">-->
+                        <!--                            &lt;!&ndash; Hiển thị giỏ hàng &ndash;&gt;-->
+                        <!--                            <ul class="cart_list" th:if="${cartItem != null and cartItem.size() > 0}">-->
+                        <!--                                <li th:each="pro:${cartItem}">-->
+                        <!--                                    <a href="#" class="item_remove"><i class="ion-close" 2></i></a>-->
+                        <!--                                    <a href="#"><img th:src="@{pro.product.image}" alt="cart_thumb1">Variable product-->
+                        <!--                                        001</a>-->
+                        <!--                                    <span class="cart_quantity" th:text="${pro.quantity}">1 x <span class="cart_amount"> <span-->
+                        <!--                                            class="price_symbole"-->
+                        <!--                                            th:text="${pro.price*pro.quantity} +'$'">$</span></span>78.00</span>-->
+                        <!--                                </li>-->
+                        <!--                            </ul>-->
+                        <!--                            <div class="cart_footer" th:if="${cartItem != null and cartItem.size() > 0}">-->
+                        <!--                                <p class="cart_total"><strong>Subtotal:</strong> <span class="cart_price"> <span-->
+                        <!--                                        class="price_symbole" th:text="${cartTotal}">$</span></span>159.00</p>-->
+                        <!--                                <p class="cart_buttons"><a th:href="@{/cart}" class="btn btn-fill-line view-cart">View-->
+                        <!--                                    Cart</a><a-->
+                        <!--                                        th:href="/checkout" class="btn btn-fill-out checkout">Checkout</a></p>-->
+                        <!--                            </div>-->
+                        <!--                            <div class="cart_footer" th:unless="${cartItem != null and cartItem.size() > 0}">-->
+                        <!--                                <p class="cart_total"><strong>Cart is empty</strong></p>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                        <div th:unless="${#httpSession.getAttribute('userLoginUser') != null}"-->
+                        <!--                             class="cart_box dropdown-menu dropdown-menu-right">-->
+                        <!--                            &lt;!&ndash; Hiển thị giỏ hàng rỗng &ndash;&gt;-->
+                        <!--                            <ul class="cart_list">-->
+                        <!--                                <li><span>Cart Rỗng</span></li>-->
+                        <!--                            </ul>-->
+                        <!--                        </div>-->
                     </li>
                 </ul>
             </nav>

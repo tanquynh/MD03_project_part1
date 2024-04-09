@@ -141,7 +141,7 @@
                                                 <td th:text="${user.getUserId()}"></td>
                                                 <td>
                                                     <div class="table-image">
-                                                        <img th:src="${user.getAvatar()}" class="img-fluid"
+                                                        <img th:src="${user.avatar}" class="img-fluid"
                                                              alt="">
                                                     </div>
                                                 </td>
@@ -175,7 +175,7 @@
 
                                                         <li>
                                                             <a onclick="return confirm('Are you sure to change status?')"
-                                                               th:href="@{/admin/user-block/{userId}(userId=${user.userId})}"
+                                                               th:href="@{/admin/user-change/{userId}(userId=${user.userId})}"
                                                                data-bs-toggle="tooltip"
                                                                title="Change status"
                                                                class="btn btn-subtle-danger btn-icon btn-sm"

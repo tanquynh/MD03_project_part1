@@ -7,7 +7,20 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap"
           rel="stylesheet">
+    <style>
 
+        /* Biểu tượng thích */
+        .icon-like {
+            margin-left: 90px;
+            color: #ff0000; /* Màu của biểu tượng thích */
+            cursor: pointer; /* Con trỏ chuột thành dấu nhấp */
+        }
+
+        /* Hiệu ứng hover */
+        .icon-like:hover {
+            color: blue; /* Màu sắc thay đổi khi hover */
+        }
+    </style>
 
 </head>
 
@@ -153,6 +166,8 @@
                                            th:data-product-id="${product.productId}"><i class="icon-shuffle"></i></a>
                                         <a class="add_wishlist wishlist-add" href="#"
                                            th:data-product-id="${product.productId}"><i class="icon-heart"></i></a>
+                                        <span th:data-product-id="${product.productId}"
+                                              class="icon-like like-add"></span>
                                     </div>
                                 </div>
                                 <hr/>
@@ -299,14 +314,20 @@
                                                         <span th:data-value="4"><i class="far fa-star"></i></span>
                                                         <span th:data-value="5"><i class="far fa-star"></i></span>
                                                     </div>
-                                                    <input type="hidden" id="ratingValue" th:data-rating="rating" value="0">
+                                                    <input type="hidden" id="ratingValue" th:data-rating="rating"
+                                                           value="0">
                                                 </div>
-                                                <div type="hidden" class="productIdAdd" name="productId" th:data-product-id="${product.productId}"></div>
+                                                <div type="hidden" class="productIdAdd" name="productId"
+                                                     th:data-product-id="${product.productId}"></div>
                                                 <div class="form-group col-12 mb-3">
-                                                    <textarea required="required" placeholder="Your review *" class="form-control comment-add" th:data-comment="message" rows="4"></textarea>
+                                                    <textarea required="required" placeholder="Your review *"
+                                                              class="form-control comment-add" th:data-comment="message"
+                                                              rows="4"></textarea>
                                                 </div>
                                                 <div class="form-group col-12 mb-3">
-                                                    <button type="submit" class="btn btn-fill-out submit-comment" name="submit" value="Submit">Submit Review</button>
+                                                    <button type="submit" class="btn btn-fill-out submit-comment"
+                                                            name="submit" value="Submit">Submit Review
+                                                    </button>
                                                 </div>
                                             </form>
                                         </div>
@@ -780,9 +801,9 @@
 </script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Xử lý khi người dùng nhấn nút submit trên biểu mẫu
-        $('#reviewForm').submit(function(e) {
+        $('#reviewForm').submit(function (e) {
             e.preventDefault(); // Ngăn chặn việc gửi biểu mẫu và tải lại trang
 
             // Lấy giá trị đánh giá, productId và comment từ các thành phần trên biểu mẫu
@@ -797,11 +818,11 @@
             $.ajax({
                 type: 'GET',
                 url: `/add-comment-ajax?productId=${productId}&rating=${rating}&comment=${comment}`, // Đường dẫn của controller trong Spring Boot để xử lý dữ liệu đánh giá
-                success: function(response) {
+                success: function (response) {
                     alert('Đánh giá đã được gửi thành công!');
                     // Cập nhật giao diện người dùng nếu cần
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     alert('Lỗi khi gửi đánh giá. Vui lòng thử lại sau.');
                     console.error('Lỗi khi gửi đánh giá:', error);
                 }
@@ -809,7 +830,7 @@
         });
 
         // Xử lý khi người dùng click vào sao để đánh giá
-        $('.star_rating span').on('click', function() {
+        $('.star_rating span').on('click', function () {
             var value = $(this).data('value'); // Lấy giá trị đánh giá từ thuộc tính data-value của sao
             $('#ratingValue').val(value); // Đặt giá trị đánh giá vào input hidden
 
@@ -817,7 +838,26 @@
         });
     });
 </script>
+<script>
 
+    $('.like-add').on('click', function (e) {
+        e.preventDefault();
+        var product = $(this).data('product-id');
+        console.log(product)
+        $.ajax({
+            type: 'GET',
+            url: `/add-likeUser?productId=` + product,
+            success: function () {
+                console.log('Sản phẩm đã like san pham');
+            },
+            error: function () {
+                console.error('Lỗi khi like san pham:');
+
+            }
+        });
+
+    });
+</script>
 
 </body>
 </html>

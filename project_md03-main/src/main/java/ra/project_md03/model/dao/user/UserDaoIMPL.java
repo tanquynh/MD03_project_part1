@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.sql.Types.INTEGER;
+
 @Repository
 public class UserDaoIMPL implements UserDao {
     public static int totalPageSearch;
@@ -104,7 +105,7 @@ public class UserDaoIMPL implements UserDao {
         } finally {
             ConnectionDatabase.closeConnection(connection);
         }
-        return null;
+        return user;
     }
 
     @Override
@@ -128,7 +129,7 @@ public class UserDaoIMPL implements UserDao {
                 user.setPhone(rs.getString("phone"));
                 user.setRole(rs.getBoolean("role"));
                 user.setUsername(rs.getString("status"));
-                user.setUserStatus(rs.getBoolean("avatar"));
+                user.setAvatar(rs.getString("avatar"));
                 user.setPassword(rs.getString("password"));
                 users.add(user);
             }

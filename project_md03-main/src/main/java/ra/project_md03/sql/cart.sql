@@ -14,12 +14,32 @@ CREATE TABLE ITEM
     quantity   int
 );
 
+# DELIMITER //
+# CREATE PROCEDURE PROC_GET_USER_CART_ID(IN user_id_in int, OUT cart_id int)
+# begin
+#     SELECT * FROM CART WHERE user_id = user_id_in;
+#     SET cart_id = (SELECT id FROM CART WHERE user_id = user_id_in);
+# end //
+# DELIMITER ;
+
 DELIMITER //
-CREATE PROCEDURE PROC_GET_USER_CART_ID(IN user_id_in int, OUT cart_id int)
-begin
-    SELECT * FROM CART WHERE user_id = user_id_in;
-    SET cart_id = (SELECT id FROM CART WHERE user_id = user_id_in);
-end //
+
+CREATE DEFINER = root@localhost PROCEDURE PROC_GET_USER_CART_ID(IN user_id_in INT, OUT cart_id INT)
+BEGIN
+    DECLARE cart_exists INT DEFAULT 0; -- Biến để kiểm tra xem giỏ hàng có tồn tại không
+
+    -- Kiểm tra xem giỏ hàng tồn tại không
+    SELECT COUNT(*) INTO cart_exists FROM CART WHERE user_id = user_id_in;
+
+    IF cart_exists > 0 THEN
+        -- Nếu giỏ hàng tồn tại, thực hiện lấy id của giỏ hàng
+        SELECT id INTO cart_id FROM CART WHERE user_id = user_id_in;
+    ELSE
+        -- Nếu không tìm thấy giỏ hàng, gán cart_id = -1 hoặc một giá trị khác tuỳ bạn chọn
+        SET cart_id = -1; -- hoặc SET cart_id = NULL; tùy theo yêu cầu của ứng dụng của bạn
+    END IF;
+END//
+
 DELIMITER ;
 
 DELIMITER //
@@ -31,13 +51,15 @@ end //
 DELIMITER ;
 
 DELIMITER //
-CREATE PROCEDURE PROC_GET_USER_CART_ITEM(IN user_id_in int)
-begin
-    SELECT c.id, c.user_id, i.product_id, i.quantity
-    FROM CART c
-             JOIN ITEM i ON c.id = i.cart_id
-    WHERE user_id = user_id_in;
-end //
+
+DELIMITER //
+
+CREATE PROCEDURE PROC_GET_USER_CART_ITEMS(IN cart_id_in INT)
+BEGIN
+    SELECT *
+    FROM ITEM
+    WHERE cart_id = cart_id_in;
+END//
 DELIMITER ;
 
 DELIMITER //
@@ -87,4 +109,25 @@ CREATE PROCEDURE PROC_DELETE_USER_CART_ITEM(IN user_cart_id int)
 begin
     DELETE FROM ITEM WHERE cart_id = user_cart_id;
 end //
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE CheckProductExistence(
+    IN p_product_id INT,
+    IN p_cart_id INT,
+    OUT p_exists INT
+)
+BEGIN
+    -- Khởi tạo giá trị mặc định cho biến kết quả
+    SET p_exists = 0;
+
+    -- Kiểm tra sự tồn tại của product_id trong bảng ITEM cho cart_id cụ thể
+    SELECT COUNT(*) INTO p_exists
+    FROM ITEM
+    WHERE product_id = p_product_id AND cart_id = p_cart_id;
+
+    -- Kết thúc stored procedure
+END//
+
 DELIMITER ;

@@ -7,6 +7,7 @@ import ra.project_md03.model.entity.Coupons;
 import java.util.List;
 
 public interface CouponsDao extends IGenericDao<Coupons,Integer, String> {
+    List<Coupons> findAll();
     void changeStatus(Integer id);
     Integer getTotalPagePagination(Integer limit, Integer currentPage);
     Integer getTotalPageSearch(String searchName);

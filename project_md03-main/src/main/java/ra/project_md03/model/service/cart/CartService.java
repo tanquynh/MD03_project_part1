@@ -10,13 +10,15 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CartService {
     List<CartItem> cartItems = new ArrayList<>();
     @Autowired
+    CartItemDBService cartItemDBService;
+    @Autowired
     HttpSession httpSession;
-
     public List<CartItem> getCartItems() {
         //kiem tra xem trong session co khong, co thi lay va gan vao cartItem/ khong co thi cho bang rong
         cartItems = ((httpSession.getAttribute("carts") != null) ? (List<CartItem>) httpSession.getAttribute("carts") : new ArrayList<>());
@@ -35,6 +37,7 @@ public class CartService {
 //luu vao session
         httpSession.setAttribute("carts", cartItems);
     }
+
     public void addToCartQuick(CartItem cartItem) {
         CartItem oldCartItem = findCartItemByProduct(cartItem.getProduct());
         if (oldCartItem != null) {
@@ -52,7 +55,6 @@ public class CartService {
 //        CartItem cartItem = (CartItem) cartItems.stream().filter(cart -> cart.getProduct().getProductId() == productId);
         CartItem cartItem = findCartItemByProductId(productId);
         cartItem.setQuantity(cartItem.getQuantity() + 1);
-
         //luu vao session
         httpSession.setAttribute("carts", cartItems);
     }
@@ -69,7 +71,7 @@ public class CartService {
     }
 
     public void delete(Integer productId) {
-        cartItems.removeIf(cartItem -> cartItem.getProduct().getProductId() == productId);
+        cartItems.removeIf(cartItem -> Objects.equals(cartItem.getProduct().getProductId(), productId));
         //luu vao session
         httpSession.setAttribute("carts", cartItems);
     }
@@ -91,6 +93,7 @@ public class CartService {
         }
         return cartTotal;
     }
+
     public CartItem findCartItemByProductId(Integer id) {
         for (CartItem cartItem : cartItems) {
             if (cartItem.getProduct().getProductId() == id) {

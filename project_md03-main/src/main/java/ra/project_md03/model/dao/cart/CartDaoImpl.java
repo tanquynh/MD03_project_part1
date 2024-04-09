@@ -7,7 +7,6 @@ import java.sql.*;
 
 @Repository
 public class CartDaoImpl implements CartDao {
-
     @Override
     public Integer checkCartUser(Integer userId) {
         Connection connection = null;
@@ -18,7 +17,7 @@ public class CartDaoImpl implements CartDao {
             statement.registerOutParameter(2, java.sql.Types.INTEGER);
             statement.execute();
           int id =  statement.getInt(2);
-            if(id > 0) {
+            if(id > -1) {
                 return id;
             }
             return 0;

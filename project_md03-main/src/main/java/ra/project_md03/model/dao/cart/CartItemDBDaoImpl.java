@@ -6,10 +6,7 @@ import ra.project_md03.model.dao.product.ProductDao;
 import ra.project_md03.model.entity.CartItemDB;
 import ra.project_md03.util.ConnectionDatabase;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,11 +45,20 @@ public class CartItemDBDaoImpl implements CartItemDBDao {
         Connection connection = null;
         try {
             connection = ConnectionDatabase.openConnection();
-            CallableStatement statement = connection.prepareCall("{CALL PROC_ITEM_ADD(?,?,?)}");
-            statement.setInt(1, item.getCartId());
-            statement.setInt(2, item.getProduct().getProductId());
-            statement.setInt(3, item.getQuantity());
-            statement.executeUpdate();
+            CallableStatement callableStatement = connection.prepareCall("{CALL CheckProductExistence(?,?,?)}");
+            callableStatement.setInt(1, item.getProduct().getProductId());
+            callableStatement.setInt(2, item.getCartId());
+            callableStatement.registerOutParameter(3, Types.INTEGER);
+            callableStatement.execute();
+            int check = callableStatement.getInt(3);
+
+            if (check == 0) {
+                CallableStatement statement = connection.prepareCall("{CALL PROC_ITEM_ADD(?,?,?)}");
+                statement.setInt(1, item.getCartId());
+                statement.setInt(2, item.getProduct().getProductId());
+                statement.setInt(3, item.getQuantity());
+                statement.executeUpdate();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

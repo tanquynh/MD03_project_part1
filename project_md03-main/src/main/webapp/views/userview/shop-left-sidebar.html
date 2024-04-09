@@ -8,7 +8,20 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap"
           rel="stylesheet">
 
+    <style>
 
+        /* Biểu tượng thích */
+        .icon-like {
+            margin-left: 90px;
+            color: #ff0000; /* Màu của biểu tượng thích */
+            cursor: pointer; /* Con trỏ chuột thành dấu nhấp */
+        }
+
+        /* Hiệu ứng hover */
+        .icon-like:hover {
+            color: blue; /* Màu sắc thay đổi khi hover */
+        }
+    </style>
 </head>
 
 <body>
@@ -131,6 +144,8 @@
                                             <div class="product_rate" style="width:80%"></div>
                                         </div>
                                         <span class="rating_num">(21)</span>
+                                        <span th:data-product-id="${pro.productId}"
+                                              class="icon-like like-add"></span>
                                     </div>
                                     <div class="pr_desc" th:text="${pro.description}">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit
@@ -827,6 +842,26 @@
             },
             error: function () {
                 console.error('Lỗi khi thêm sản phẩm vào mục compare:');
+
+            }
+        });
+
+    });
+</script>
+<script>
+
+    $('.like-add').on('click', function (e) {
+        e.preventDefault();
+        var product = $(this).data('product-id');
+        console.log(product)
+        $.ajax({
+            type: 'GET',
+            url: `/add-likeUser?productId=` + product,
+            success: function () {
+                console.log('Sản phẩm đã like san pham');
+            },
+            error: function () {
+                console.error('Lỗi khi like san pham:');
 
             }
         });

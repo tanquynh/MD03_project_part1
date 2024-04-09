@@ -9,6 +9,7 @@ import ra.project_md03.model.entity.Product;
 import ra.project_md03.model.service.product.ProductService;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -71,7 +72,6 @@ public class CartItemDBServiceImpl implements CartItemDBService {
     @Override
     public List<CartItemDB> getCartUserLogin(Integer cartId) {
         List<CartItemDB> cartItemDBList = cartItemDBDao.findItemByCartId(cartId);
-
         getTotalProduct(cartItemDBList);
         return cartItemDBList;
     }
@@ -80,13 +80,10 @@ public class CartItemDBServiceImpl implements CartItemDBService {
         int totalProduct = list.stream().mapToInt(CartItemDB::getQuantity).sum();
         httpSession.setAttribute("cartTotalProduct", totalProduct);
     }
-
     @Override
     public void deleteCartItem(Integer cartId) {
         cartItemDBDao.deleteCartItem(cartId);
     }
-
-
     @Override
     public boolean addToCart(CartItemDB cartItemDB, Integer cartId) {
         CartItemDB itemDB = cartItemDBDao.findByProductId(cartItemDB.getProduct().getProductId(), cartId);
@@ -118,9 +115,15 @@ public class CartItemDBServiceImpl implements CartItemDBService {
 
     @Override
     public Integer getCartTotal(List<CartItemDB> list) {
-//        return (int) list.stream().mapToDouble(item -> (Double) item.getProduct().getPrice() * item.getQuantity()).sum();
-        return 0;
+        BigDecimal total = BigDecimal.ZERO; // Khởi tạo tổng giá trị là 0
+
+        for (CartItemDB item : list) {
+            BigDecimal price = item.getProduct().getPrice();
+            int quantity = item.getQuantity();
+
+            BigDecimal itemTotal = price.multiply(BigDecimal.valueOf(quantity));
+            total = total.add(itemTotal);
+        }
+        return total.intValue();
     }
-
-
 }
