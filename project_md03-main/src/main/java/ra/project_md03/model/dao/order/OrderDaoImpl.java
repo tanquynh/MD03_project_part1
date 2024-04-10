@@ -34,7 +34,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setOrderId(resultSet.getInt("id"));
                 order.setOrder_at(resultSet.getDate("order_at"));
                 order.setOrderStatus(resultSet.getInt("status"));
-                order.setOrderTotal(resultSet.getDouble("total"));
+                order.setOrderTotal(resultSet.getBigDecimal("total"));
                 order.setUser(userDao.findById(resultSet.getInt("user_id")));
                 order.setAddress(resultSet.getString("address"));
                 order.setNote(resultSet.getString("note"));
@@ -58,7 +58,7 @@ public class OrderDaoImpl implements OrderDao {
             connection.setAutoCommit(false);
             CallableStatement statement = connection.prepareCall("{CALL PROC_ORDERS_ADD(?,?,?,?,?,?)}");
             statement.setInt(1, order.getUser().getUserId());
-            statement.setDouble(2, order.getOrderTotal());
+            statement.setBigDecimal(2, order.getOrderTotal());
             statement.setString(3, order.getAddress());
             statement.setString(4, order.getNote());
             statement.setString(5, order.getPayment());
@@ -118,7 +118,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setOrderId(resultSet.getInt("id"));
                 order.setOrder_at(resultSet.getDate("order_at"));
                 order.setOrderStatus(resultSet.getInt("status"));
-                order.setOrderTotal(resultSet.getDouble("total"));
+                order.setOrderTotal(resultSet.getBigDecimal("total"));
                 order.setUser(userDao.findById(resultSet.getInt("user_id")));
                 order.setAddress(resultSet.getString("address"));
                 order.setNote(resultSet.getString("note"));
@@ -147,7 +147,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setOrderId(resultSet.getInt("id"));
                 order.setOrder_at(resultSet.getDate("order_at"));
                 order.setOrderStatus(resultSet.getInt("status"));
-                order.setOrderTotal(resultSet.getDouble("total"));
+                order.setOrderTotal(resultSet.getBigDecimal("total"));
                 order.setUser(userDao.findById(resultSet.getInt("user_id")));
                 order.setAddress(resultSet.getString("address"));
                 order.setNote(resultSet.getString("note"));
@@ -175,7 +175,7 @@ public class OrderDaoImpl implements OrderDao {
                 orderDetail.setOrder(findByOrderId(resultSet.getInt("order_id")));
                 orderDetail.setProduct(productDao.findById(resultSet.getInt("product_id")));
                 orderDetail.setQuantity(resultSet.getInt("quantity"));
-                orderDetail.setOrderPrice(resultSet.getDouble("price"));
+                orderDetail.setOrderPrice(resultSet.getBigDecimal("price"));
                 orderDetailList.add(orderDetail);
 
             }
@@ -201,7 +201,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setOrderId(resultSet.getInt("id"));
                 order.setOrder_at(resultSet.getDate("order_at"));
                 order.setOrderStatus(resultSet.getInt("status"));
-                order.setOrderTotal(resultSet.getDouble("total"));
+                order.setOrderTotal(resultSet.getBigDecimal("total"));
                 order.setUser(userDao.findById(resultSet.getInt("user_id")));
                 order.setAddress(resultSet.getString("address"));
                 order.setNote(resultSet.getString("note"));
@@ -250,7 +250,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setOrderId(resultSet.getInt("id"));
                 order.setOrder_at(resultSet.getDate("order_at"));
                 order.setOrderStatus(resultSet.getInt("status"));
-                order.setOrderTotal(resultSet.getDouble("total"));
+                order.setOrderTotal(resultSet.getBigDecimal("total"));
                 order.setUser(userDao.findById(resultSet.getInt("user_id")));
                 order.setAddress(resultSet.getString("address"));
                 order.setNote(resultSet.getString("note"));
@@ -279,7 +279,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setOrderId(resultSet.getInt("id"));
                 order.setOrder_at(resultSet.getDate("order_at"));
                 order.setOrderStatus(resultSet.getInt("status"));
-                order.setOrderTotal(resultSet.getDouble("total"));
+                order.setOrderTotal(resultSet.getBigDecimal("total"));
                 order.setUser(userDao.findById(resultSet.getInt("user_id")));
                 order.setAddress(resultSet.getString("address"));
                 order.setNote(resultSet.getString("note"));
@@ -308,7 +308,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setOrderId(resultSet.getInt("id"));
                 order.setOrder_at(resultSet.getDate("order_at"));
                 order.setOrderStatus(resultSet.getInt("status"));
-                order.setOrderTotal(resultSet.getDouble("total"));
+                order.setOrderTotal(resultSet.getBigDecimal("total"));
                 order.setUser(userDao.findById(resultSet.getInt("user_id")));
                 order.setAddress(resultSet.getString("address"));
                 order.setNote(resultSet.getString("note"));

@@ -93,6 +93,15 @@ end
 //
 DELIMITER ;
 
+
+
+create procedure pagi(IN limit_in int, IN curent_page_in int, OUT totalPage_out int)
+begin
+    declare offset int;
+    set offset = (curent_page_in -1) * limit_in;
+    set totalPage_out = ceil((select count(*) from product)/limit_in);
+    select  * from  product limit limit_in offset offset;
+end;
 DELIMITER
 //
 CREATE PROCEDURE PROC_PRODUCT_CHANGE_STATUS(IN id_in int)

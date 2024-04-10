@@ -41,13 +41,13 @@ public class ProfileController {
     public String profile() {
         UserLoginDTO userLoginDTO = (UserLoginDTO) httpSession.getAttribute("userLoginUser");
         if (userLoginDTO != null) {
-            return "/userview/my-account";
+            return "/userview/my-accountsua";
         } else {
             return "redirect:/login?action=profile";
         }
     }
 
-    @GetMapping("/order-history")
+    @GetMapping("/profile/order")
     public String orderHistory(Model model) {
         User userLogin = getProfile();
         if (userLogin != null) {
@@ -60,7 +60,7 @@ public class ProfileController {
         return "userview/order-history";
     }
 
-    @GetMapping("/order-show/{id}")
+    @GetMapping("/profile/order-show/{id}")
     public String showOrder(@PathVariable("id") Integer orderId, Model model) {
         User userLogin = getProfile();
         if (userLogin != null) {
@@ -74,12 +74,12 @@ public class ProfileController {
         List<OrderDetail> orderDetailList = orderService.findOrderDetailByOrderId(orderId);
         model.addAttribute("orderDetailList", orderDetailList);
 
-        int cartTotal = (int) orderDetailList.stream().mapToDouble(orderDetail -> orderDetail.getOrderPrice() * orderDetail.getQuantity()).sum();
-        model.addAttribute("cartTotal", cartTotal);
+//        int cartTotal = (int) orderDetailList.stream().mapToDouble(orderDetail -> orderDetail.getOrderPrice() * orderDetail.getQuantity()).sum();
+        model.addAttribute("cartTotal", order.getOrderTotal());
         return "userview/order-detail";
     }
 
-    @GetMapping("/order-cancel/{id}")
+    @GetMapping("/profile/order-cancel/{id}")
     public String cancel(@PathVariable("id") Integer orderId, RedirectAttributes redirectAttributes) {
         orderService.changeStatus(2, orderId);
         List<OrderDetail> orderDetails = orderService.findOrderDetailByOrderId(orderId);
@@ -93,7 +93,7 @@ public class ProfileController {
         }
 
         redirectAttributes.addFlashAttribute("message", "Cancelled order successfully!");
-        return "redirect:/profile/edit-profile";
+        return "redirect:/profile/my-accountsua";
     }
 
     @RequestMapping("/profile/edit-profile")
@@ -107,7 +107,7 @@ public class ProfileController {
         userEdit.setUsername(userLogin.getUsername());
         userEdit.setPassword(userLogin.getPassword());
         model.addAttribute("user", userEdit);
-        return "userview/my-accountsua";
+        return "userview/edit-profite";
     }
 
     @PostMapping("/profile/edit-profile")
@@ -115,7 +115,7 @@ public class ProfileController {
                                   @RequestParam("img") MultipartFile file,
                                   RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            return "userview/my-accountsua";
+            return "userview/edit-profite";
         }
         userService.update(user);
         redirectAttributes.addFlashAttribute("message", "Edit profile successfully!");
@@ -129,12 +129,12 @@ public class ProfileController {
         if (userLogin != null) {
             model.addAttribute("user", userLogin);
         } else {
-            return "redirect:/login?action=profile-change-password";
+            return "redirect:/login?action=profile/change-password";
         }
         return "userview/profile-change-password";
     }
 
-    @RequestMapping(value = "/profile-change-password", method = RequestMethod.POST)
+    @RequestMapping(value = "/profile/change-password", method = RequestMethod.POST)
     public String postChangePassword(@RequestParam("old-password") String oldPassword,
                                      @RequestParam("new-password") String newPassword,
                                      @RequestParam("confirm-password") String confirmPassword,
@@ -144,28 +144,28 @@ public class ProfileController {
         if (oldPassword != null && newPassword != null && confirmPassword != null) {
             if (!userService.checkPassword(oldPassword, userLogin)) {
                 redirectAttributes.addFlashAttribute("errOldPassword", "Incorrect old password!");
-                return "redirect:/profile-change-password";
+                return "redirect:/profile/change-password";
             }
             if (newPassword.length() < 4 || newPassword.length() > 12) {
                 redirectAttributes.addFlashAttribute("errNewPassword", "New password's length is from 4 to 12");
-                return "redirect:/profile-change-password";
+                return "redirect:/profile/change-password";
             }
             if (newPassword.equals(oldPassword)) {
                 redirectAttributes.addFlashAttribute("errNewPassword", "New password must be different from old password!");
-                return "redirect:/profile-change-password";
+                return "redirect:/profile/change-password";
             }
             if (!userService.checkConfirmedPassword(newPassword, confirmPassword)) {
                 redirectAttributes.addFlashAttribute("errConfirmPassword", "Incorrect password!");
-                return "redirect:/profile-change-password";
+                return "redirect:/profile/change-password";
             }
         } else {
             redirectAttributes.addFlashAttribute("errConfirmPassword", "Please fill password!");
-            return "redirect:/profile-change-password";
+            return "redirect:/profile/change-password";
         }
         userService.changePassword(newPassword, userLogin.getUserId());
         redirectAttributes.addFlashAttribute("message", "Change password successfully!");
 
-        return "redirect:/order-history";
+        return "redirect:/profile";
     }
 
     public User getProfile() {

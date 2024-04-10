@@ -34,42 +34,26 @@ public class UserController {
         return "userview/signup";
     }
 
-    //    @RequestMapping(value = "/signup-post", method = RequestMethod.POST)
-//    public String signupPost(@Valid @ModelAttribute("user") UserRegisterDTO userRegisterDTO, BindingResult result, @RequestParam("confirm-password") String confirmedPassword, RedirectAttributes redirectAttributes) {
-//        if (result.hasErrors()) {
-//            return "userview/signup";
-//        }
-//        if (userService.findByMail(userRegisterDTO.getEmail()) != null) {
-//            redirectAttributes.addFlashAttribute("errEmail", "Email has already been existed!");
-//            return "redirect:/signup";
-//        }
-//        if (!userService.checkConfirmedPassword(userRegisterDTO.getPassword(), confirmedPassword)) {
-//            redirectAttributes.addFlashAttribute("errRePassword", "Incorrect password!");
-//            return "redirect:/signup";
-//        }
-//        if (userService.register(userRegisterDTO)) {
-//            redirectAttributes.addFlashAttribute("message", "Create account successfully!");
-//        }
-//        return "redirect:/login";
-//    }
     @RequestMapping(value = "/signup-post", method = RequestMethod.POST)
-    public String signupPost(@Valid @ModelAttribute("user") UserRegisterDTO userRegisterDTO, BindingResult result, @RequestParam("confirm-password") String confirmedPassword, RedirectAttributes redirectAttributes) {
+    public String signupPost(@Valid @ModelAttribute("user") UserRegisterDTO userRegisterDTO, BindingResult result, Model model,
+                             @RequestParam("confirm-password") String confirmedPassword, RedirectAttributes redirectAttributes) {
+
         if (result.hasErrors()) {
-            return "userview/signup"; // Hiển thị lại form nếu có lỗi validation
+            return "userview/signup";
         }
 
         if (userService.findByMail(userRegisterDTO.getEmail()) != null) {
-            redirectAttributes.addFlashAttribute("errEmail", "Email has already been registered!");
+            model.addAttribute("errEmail", "Email has already been registered!");
             return "redirect:/signup";
         }
 
         if (!userService.checkConfirmedPassword(userRegisterDTO.getPassword(), confirmedPassword)) {
-            redirectAttributes.addFlashAttribute("errRePassword", "Incorrect password confirmation!");
+            model.addAttribute("errRePassword", "Incorrect password confirmation!");
             return "redirect:/signup";
         }
 
         if (userService.register(userRegisterDTO)) {
-            redirectAttributes.addFlashAttribute("message", "Account created successfully!");
+            model.addAttribute("message", "Account created successfully!");
         }
 
         return "redirect:/login";

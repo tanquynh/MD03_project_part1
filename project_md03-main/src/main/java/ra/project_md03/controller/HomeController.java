@@ -25,8 +25,6 @@ public class HomeController {
     @Autowired
     private CategoryServiceImpl categoryService;
     @Autowired
-    private CartItemDBService cartItemDBService;
-    @Autowired
     private ProductServiceImpl productService;
     @Autowired
     private HttpSession session;
@@ -56,8 +54,5 @@ public class HomeController {
     public String contact() {
         return "userview/contact";
     }
-    @RequestMapping("/thankyou")
-    public String wishlist() {
-        return "userview/thankyou";
-    }
+
 }

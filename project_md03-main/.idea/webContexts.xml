@@ -7,6 +7,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/admin/product/product-edit.html" value="file://$PROJECT_DIR$/src/main/webapp/views/admin/product" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/admin/product/product-show.html" value="file://$PROJECT_DIR$/src/main/webapp/views/admin/product" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/user/index-3.html" value="file://$PROJECT_DIR$/src/main/webapp/views/user" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/userview/edit-profite.html" value="file://$PROJECT_DIR$/src/main/webapp/views/userview" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/userview/index.html" value="file://$PROJECT_DIR$/src/main/webapp/views/userview" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/userview/shop-cart.html" value="file://$PROJECT_DIR$/src/main/webapp/views/userview" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/userview/shop-product-detail-left-sidebar.html" value="file://$PROJECT_DIR$/src/main/webapp/views/userview" />

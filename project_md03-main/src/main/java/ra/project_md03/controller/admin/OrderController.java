@@ -69,8 +69,8 @@ public class OrderController {
         List<OrderDetail> orderDetailList = orderService.findOrderDetailByOrderId(orderId);
         model.addAttribute("orderDetailList", orderDetailList);
 
-        int cartTotal = (int) orderDetailList.stream().mapToDouble(orderDetail -> orderDetail.getOrderPrice() * orderDetail.getQuantity()).sum();
-        model.addAttribute("cartTotal", cartTotal);
+//        int cartTotal = (int) orderDetailList.stream().mapToDecima(orderDetail -> orderDetail.getOrderPrice() * orderDetail.getQuantity()).sum();
+        model.addAttribute("cartTotal", order.getOrderTotal());
         return "admin/order/order-detail";
     }
 

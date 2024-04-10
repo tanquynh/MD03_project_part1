@@ -15,12 +15,13 @@ import javax.validation.constraints.Size;
 @Setter
 public class UserLoginDTO {
     private int userId;
-    @NotEmpty(message = "Please fill username!")
+    @NotEmpty(message = "Please fill email!")
     @Pattern(regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "Please include @ in email!")
     private String email;
-    @NotEmpty(message = "Please fill username!")
+    @NotEmpty(message = "Please fill password!")
     @Size(min = 4, max = 12, message = "Password's length is from 4 to 12")
     private String password;
+    @NotEmpty(message = "Please fill username!")
     private String username;
     private String avatar = "https://firebasestorage.googleapis.com/v0/b/project-md03-javaweb.appspot.com/o/human.jpg?alt=media&token=9eb4c0d8-74fa-433e-894d-c152119c288c";
     private boolean userStatus = true;

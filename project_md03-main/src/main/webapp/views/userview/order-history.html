@@ -72,8 +72,8 @@
                                    aria-selected="false"><i
                                         class="ti-layout-grid2"></i>Dashboard</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/profile/order}"
+                            <li class="nav-item"  id="order-history">
+                                <a class="nav-link active" th:href="@{/profile/order}"
                                    aria-selected="false"><i class="ti-shopping-cart-full"></i>Orders</a>
                             </li>
                             <li class="nav-item">
@@ -86,8 +86,8 @@
                                    aria-selected="true"><i
                                         class="ti-id-badge"></i>Account details</a>
                             </li>
-                            <li class="nav-item" id="change-password">
-                                <a class="nav-link active "
+                            <li class="nav-item">
+                                <a class="nav-link  "
                                    th:href="@{/profile/change-password}"> <i class="fas fa-lock"></i>Change
                                     PassWord</a>
                             </li>
@@ -103,7 +103,7 @@
                              aria-labelledby="dashboard-tab">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3>Dashboard</h3>
+                                    <h3>Order-history</h3>
                                 </div>
                                 <div class="card-body">
                                     <p>From your account dashboard. you can easily check &amp; view your <a
@@ -120,44 +120,49 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade active show" id="change-password" role="tabpanel"
+                        <div class="tab-pane fade active show" id="order-history" role="tabpanel"
                              aria-labelledby="change-password-tab">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3>Change Password</h3>
+                                    <h3>Order History</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form method="post" name="enq" th:action="@{/profile/change-password}"
-                                          th:object="${user}" enctype="multipart/form-data">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Order</th>
+                                                <th>Date</th>
+                                                <th>Total</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="order:${orders}">
+                                                <td data-label="Order ID" th:text="${order.orderId}"></td>
+                                                <td th:text="${order.order_at}">March 15, 2020</td>
+                                                <td th:text="${#numbers.formatDecimal(order.orderTotal, 0, 'COMMA', 0, 'POINT') + ' $'}">
+                                                    Processing
+                                                </td>
+                                                <td th:classappend="${order.orderStatus == 0 ? 'text-green' : (order.orderStatus == 1 ? 'text-primary' : 'text-danger')}"
+                                                    th:text="${order.orderStatus == 0 ? 'Pending' : (order.orderStatus == 1 ? 'Confirmed' : 'Cancel')}">
+                                                    $78.00 for 1 item
+                                                </td>
+                                                <td>
+                                                    <a th:href="@{profile/order-show/{id}(id=${order.orderId})}"
+                                                       class="btn btn-fill-out btn-sm">View</a>
+                                                    <a th:if="${order.orderStatus==0}"
+                                                       th:href="@{/profile/order-cancel/{id}(id=${order.orderId})}"
+                                                       class="delete-icon btn btn-air-danger"
+                                                       title="Cancel Order"><i
+                                                            class="bi bi-x-lg text-danger cursor-pointer"></i>Cancel
+                                                        Order</a></td>
+                                            </tr>
 
-                                            <div class="form-group mb-3 input-with-icon">
-                                                <label>Old Password: <span class="required">*</span></label>
-                                                <input class="form-control" required="" type="password"
-                                                       name="old-password" id="passwordInput1" placeholder="Password">
-<!--                                                <span class="toggle-password1" onclick="togglePasswordVisibility()"><i-->
-<!--                                                        class="fa fa-eye-slash"></i></span>-->
-                                            </div>
-                                            <div class="form-group mb-3 input-with-icon">
-                                                <label>New Password: <span class="required">*</span></label>
-                                                <input class="form-control" required="" type="password"
-                                                       name="new-password" id="passwordInput2" placeholder="Password">
-<!--                                                <span class="toggle-password2" onclick="togglePasswordVisibility2()"><i-->
-<!--                                                        class="fa fa-eye-slash"></i></span>-->
-                                            </div>
-                                            <div class="form-group mb-3 input-with-icon">
-                                                <label>Confirm Password: <span class="required">*</span></label>
-                                                <input class="form-control" required="" type="password"
-                                                       name="confirm-password" id="passwordInput3" placeholder="Password">
-<!--                                                <span class="toggle-password3" onclick="togglePasswordVisibility3()" ><i-->
-<!--                                                        class="fa fa-eye-slash"></i></span>-->
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <button type="submit" class="btn btn-fill-out" name="submit"
-                                                        value="Submit">Save
-                                                </button>
-                                            </div>
-                                    </form>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

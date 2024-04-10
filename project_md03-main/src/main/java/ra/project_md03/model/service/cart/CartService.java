@@ -20,12 +20,11 @@ public class CartService {
     @Autowired
     HttpSession httpSession;
     public List<CartItem> getCartItems() {
-        //kiem tra xem trong session co khong, co thi lay va gan vao cartItem/ khong co thi cho bang rong
         cartItems = ((httpSession.getAttribute("carts") != null) ? (List<CartItem>) httpSession.getAttribute("carts") : new ArrayList<>());
         return cartItems;
     }
 
-    //chuyen the a (add to cart) thanh button type=submit boc the form ben ngoai
+
     public void addToCart(CartItem cartItem) {
         CartItem oldCartItem = findCartItemByProduct(cartItem.getProduct());
         if (oldCartItem != null) {
@@ -34,7 +33,6 @@ public class CartService {
 //        day item vao cart
             cartItems.add(cartItem);
         }
-//luu vao session
         httpSession.setAttribute("carts", cartItems);
     }
 

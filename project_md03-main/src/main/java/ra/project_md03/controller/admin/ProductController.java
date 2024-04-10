@@ -41,7 +41,8 @@ public class ProductController {
     ImageService imageService;
 
     @RequestMapping({"/product", "/product/{id}"})
-    public String product(Model model, @PathVariable(value = "id", required = false) Integer page, @RequestParam(name = "searchName", required = false) String searchName) {
+    public String product(Model model, @PathVariable(value = "id", required = false) Integer page,
+                          @RequestParam(name = "searchName", required = false) String searchName) {
         int currentPage = (page != null && page >= 1) ? page : 1;
         List<Product> productList = new ArrayList<>();
         if (searchName != null && !searchName.isEmpty()) {

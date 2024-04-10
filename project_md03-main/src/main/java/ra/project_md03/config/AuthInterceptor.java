@@ -22,7 +22,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (admin != null) {
             return true;
         }
-        response.sendRedirect("/adminLogin");
+        response.sendRedirect("/login");
         return false;
     }
 }

@@ -51,7 +51,7 @@
 <div class="banner_section slide_medium shop_banner_slider staggered-animation-wrap">
     <div id="carouselExampleControls" class="carousel slide carousel-fade light_arrow" data-bs-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active background_bg" data-img-src="/images/banner1.jsp}">
+            <div class="carousel-item active background_bg" data-img-src="https://images.fpt.shop/unsafe/fit-in/filters:quality(80):fill(transparent)/fptshop.com.vn/Uploads/Originals/2024/4/8/638481670443666096_desk-header.png">
                 <div class="banner_slide_content">
                     <div class="container"><!-- STRART CONTAINER -->
                         <div class="row">
@@ -60,9 +60,9 @@
                                     <h5 class="mb-3 staggered-animation font-weight-light" data-animation="slideInLeft"
                                         data-animation-delay="0.5s">Get up to 50% off Today Only!</h5>
                                     <h2 class="staggered-animation" data-animation="slideInLeft"
-                                        data-animation-delay="1s">Woman Fashion</h2>
+                                        data-animation-delay="1s">Laprop </h2>
                                     <a class="btn btn-fill-out rounded-0 staggered-animation text-uppercase"
-                                       href="shop-left-sidebar.html" data-animation="slideInLeft"
+                                       th:href="@{/product}" data-animation="slideInLeft"
                                        data-animation-delay="1.5s">Shop Now</a>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                                     <h5 class="mb-3 staggered-animation font-weight-light" data-animation="slideInLeft"
                                         data-animation-delay="0.5s">50% off in all products</h5>
                                     <h2 class="staggered-animation" data-animation="slideInLeft"
-                                        data-animation-delay="1s">Man Fashion</h2>
+                                        data-animation-delay="1s">Tablet </h2>
                                     <a class="btn btn-fill-out rounded-0 staggered-animation text-uppercase"
                                        href="shop-left-sidebar.html" data-animation="slideInLeft"
                                        data-animation-delay="1.5s">Shop Now</a>
@@ -126,22 +126,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="single_banner">
-                        <img th:src="@{/user/images/shop_banner_img1.jsp}" alt="shop_banner_img1"/>
-                        <div class="single_banner_info">
-                            <h5 class="single_bn_title1">Super Sale</h5>
-                            <h3 class="single_bn_title">New Collection</h3>
-                            <a href="shop-left-sidebar.html" class="single_bn_link">Shop Now</a>
-                        </div>
+                        <img src="https://images.fpt.shop/unsafe/fit-in/800x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2024/4/5/638479134254514359_F-H1_800x300.png" alt="shop_banner_img1"/>
+
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="single_banner">
-                        <img th:src="@{/user/images/shop_banner_img2.jsp}" alt="shop_banner_img2"/>
-                        <div class="single_banner_info">
-                            <h3 class="single_bn_title">New Season</h3>
-                            <h4 class="single_bn_title1">Sale 40% Off</h4>
-                            <a href="shop-left-sidebar.html" class="single_bn_link">Shop Now</a>
-                        </div>
+                        <img src="https://images.fpt.shop/unsafe/fit-in/800x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2024/4/1/638475542977468628_F-H1_800x300.png" alt="shop_banner_img2"/>
+
                     </div>
                 </div>
             </div>
@@ -180,11 +172,11 @@
                                                             <i class="icon-basket-loaded"></i> Add To Cart
                                                         </a>
                                                     </li>
-                                                    <li><a th:href="@{/compare}" class="popup-ajax compare-add"
+                                                    <li><a href="#"  class=" compare-add"
                                                            th:data-product-id="${pro.productId}"><i
                                                             class="icon-shuffle"></i></a></li>
-                                                    <li><a th:href="@{/addToCart}" class="popup-ajax"><i
-                                                            class="icon-magnifier-add"></i></a></li>
+<!--                                                    <li><a href="#" class="popup-ajax"><i-->
+<!--                                                            class="icon-magnifier-add"></i></a></li>-->
                                                     <li><a href="#" class="wishlist-add"
                                                            th:data-product-id="${pro.productId}"><i
                                                             class="icon-heart"></i></a>
@@ -194,7 +186,7 @@
                                             </div>
                                         </div>
                                         <div class="product_info">
-                                            <h6 class="product_title"><a th:href="@{/shop-product-detail}"
+                                            <h6 class="product_title"><a th:href="@{/product-detail/{productId}(productId=${pro.productId})}"
                                                                          th:text="${pro.productName}"></a></h6>
                                             <div class="product_price">
                                                 <span class="price" th:text="${pro.price}">$45.00</span>
@@ -204,10 +196,9 @@
                                                     <div class="product_rate" style="width:80%"></div>
                                                 </div>
                                                 <span class="rating_num">(21)</span>
-                                                <span class="icon-like like-add"
-                                                      th:data-product-id="${pro.productId}"
-                                                      th:text="${listLike.get(pro.productId)}"
-                                                      data-like-status="false"></span>
+                                                <a class="icon-like like-add" th:href="@{/add-likeUser}"
+                                                     ></a>
+                                                <span th:text="${listLike.get(pro.productId)}"></span>
                                             </div>
                                             <div class="pr_desc" th:text="${pro.description}">
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
@@ -234,11 +225,11 @@
                     <div class="medium_divider d-none d-md-block clearfix"></div>
                     <div class="trand_banner_text text-center text-md-start">
                         <div class="heading_s1 mb-3">
-                            <span class="sub_heading">New season trends!</span>
-                            <h2>Best Summer Collection</h2>
+                            <span class="sub_heading">New  trends!</span>
+                            <h2>Best Seller for summer</h2>
                         </div>
                         <h5 class="mb-4">Sale Get up to 50% Off</h5>
-                        <a href="shop-left-sidebar.html" class="btn btn-fill-out rounded-0">Shop Now</a>
+                        <a th:href="@{/product}" class="btn btn-fill-out rounded-0">Shop Now</a>
                     </div>
                     <div class="medium_divider clearfix"></div>
                 </div>
@@ -267,50 +258,53 @@
                     <div class="product_slider carousel_slider owl-carousel owl-theme nav_style1" data-loop="true"
                          data-dots="false" data-nav="true" data-margin="20"
                          data-responsive='{"0":{"items": "1"}, "481":{"items": "2"}, "768":{"items": "3"}, "1199":{"items": "4"}}'>
-                        <div class="item">
+                        <div class="item"  th:each="pro : ${productList}">
                             <div class="product">
                                 <div class="product_img">
-                                    <a href="shop-product-detail.html">
-                                        <img th:src="@{/user/images/product_img1.jsp}" alt="product_img1">
+                                    <a th:href="@{/product}">
+                                        <img th:src="${pro.image} " width="270px" height="300px"
+                                             alt="product_img1">
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add
-                                                To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i
+                                            <li class="add-to-cart">
+                                                <a href="#" class="add-to-cart-btn"
+                                                   th:data-product-id="${pro.productId}">
+                                                    <i class="icon-basket-loaded"></i> Add To Cart
+                                                </a>
+                                            </li>
+                                            <li><a th:href="@{/compare}" class="popup-ajax compare-add"
+                                                   th:data-product-id="${pro.productId}"><i
                                                     class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i
+                                            <li><a th:href="@{/addToCart}" class="popup-ajax"><i
                                                     class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            <li><a href="#" class="wishlist-add"
+                                                   th:data-product-id="${pro.productId}"><i
+                                                    class="icon-heart"></i></a>
+                                            </li>
+
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="shop-product-detail.html">Blue Dress For
-                                        Woman</a></h6>
+                                    <h6 class="product_title"><a th:href="@{/product-detail/{productId}(productId=${pro.productId})}"
+                                                                 th:text="${pro.productName}"></a></h6>
                                     <div class="product_price">
-                                        <span class="price">$45.00</span>
-                                        <del>$55.25</del>
-                                        <div class="on_sale">
-                                            <span>35% Off</span>
-                                        </div>
+                                        <span class="price" th:text="${pro.price}">$45.00</span>
                                     </div>
-                                    <div class="rating_wrap">
+                                    <div class="rating_wrap d-flex">
                                         <div class="rating">
                                             <div class="product_rate" style="width:80%"></div>
                                         </div>
                                         <span class="rating_num">(21)</span>
+                                        <span class="icon-like like-add"
+                                              th:data-product-id="${pro.productId}"
+                                              th:text="${listLike.get(pro.productId)}"
+                                              data-like-status="false"></span>
                                     </div>
-                                    <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit
-                                            massa enim. Nullam id varius nunc id varius nunc.</p>
-                                    </div>
-                                    <div class="pr_switch_wrap">
-                                        <div class="product_color_switch">
-                                            <span class="active" data-color="#87554B"></span>
-                                            <span data-color="#333333"></span>
-                                            <span data-color="#DA323F"></span>
-                                        </div>
+                                    <div class="pr_desc" th:text="${pro.description}">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                                            blandit massa enim. Nullam id varius nunc id varius nunc.</p>
                                     </div>
                                 </div>
                             </div>
@@ -407,7 +401,7 @@
         console.log(product)
         $.ajax({
             type: 'GET',
-            url: `/wishlist-delete?productId=` + product,
+            url: `/add-wishlist?productId=` + product,
             success: function () {
                 console.log('Sản phẩm đã được thêm vào mục yeu thich');
             },
@@ -436,39 +430,39 @@
 
     });
 </script>
-<script>
+<!--<script>-->
 
-    let toggle = false; // Khai báo biến toggle ở phạm vi rộng hơn
-    $('.like-add').on('click', function (e) {
-        e.preventDefault();
-        let product = $(this).data('product-id');
-        let likeCount = parseInt($(this).text()); // Lấy số lượt like từ nội dung của phần tử
-        console.log(this);
-        this.classList.add("likeActive");
-        if (!isNaN(likeCount)) {
-            toggle = !toggle;
-            if (toggle) {
-                likeCount++;
-                $(this).text(likeCount); // Cập nhật số lượt like mới
-            } else {
-                likeCount--;
-                $(this).text(likeCount); // Cập nhật số lượt like mới
-            }
-        } else {
-            $(this).text(1); // Nếu không phải số, gán giá trị là 1
-        }
+<!--    let toggle = false; // Khai báo biến toggle ở phạm vi rộng hơn-->
+<!--    $('.like-add').on('click', function (e) {-->
+<!--        e.preventDefault();-->
+<!--        let product = $(this).data('product-id');-->
+<!--        let likeCount = parseInt($(this).text()); // Lấy số lượt like từ nội dung của phần tử-->
+<!--        console.log(this);-->
+<!--        this.classList.add("likeActive");-->
+<!--        if (!isNaN(likeCount)) {-->
+<!--            toggle = !toggle;-->
+<!--            if (toggle) {-->
+<!--                likeCount++;-->
+<!--                $(this).text(likeCount); // Cập nhật số lượt like mới-->
+<!--            } else {-->
+<!--                likeCount&#45;&#45;;-->
+<!--                $(this).text(likeCount); // Cập nhật số lượt like mới-->
+<!--            }-->
+<!--        } else {-->
+<!--            $(this).text(1); // Nếu không phải số, gán giá trị là 1-->
+<!--        }-->
 
-        $.ajax({
-            type: 'GET',
-            url: `/add-likeUser?productId=` + product,
-            success: function () {
-                console.log('Sản phẩm đã được thích');
-            },
-            error: function () {
-                console.error('Lỗi khi thích sản phẩm');
-            }
-        });
-    });
-</script>
+<!--        $.ajax({-->
+<!--            type: 'GET',-->
+<!--            url: `/add-likeUser?productId=` + product,-->
+<!--            success: function () {-->
+<!--                console.log('Sản phẩm đã được thích');-->
+<!--            },-->
+<!--            error: function () {-->
+<!--                console.error('Lỗi khi thích sản phẩm');-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 </body>
 </html>

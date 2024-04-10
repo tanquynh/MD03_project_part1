@@ -55,7 +55,7 @@ public class UserDaoIMPL implements UserDao {
             if (user.getUserId() == 0) {
                 CallableStatement statement = connection.prepareCall("{CALL PROC_USER_ADD(?,?,?,?,?)}");
                 statement.setString(1, user.getUsername());
-                statement.setString(2, user.getUsername());
+                statement.setString(2, user.getEmail());
                 statement.setString(3, user.getAddress());
                 statement.setString(4, user.getPhone());
                 statement.setString(5, user.getPassword());

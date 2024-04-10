@@ -2,8 +2,10 @@ package ra.project_md03.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ra.project_md03.model.dto.user.UserLoginDTO;
 import ra.project_md03.model.entity.Comment;
@@ -28,9 +30,14 @@ public class CommentController {
     public String deleteComment(@PathVariable("id") Integer productId) {
         commentService.delete(productId);
         return "redirect:/admin/comment";
-    }
 
-    @RequestMapping(value = "/add-comment-ajax")
+    }
+//@RequestMapping(value ="/add-comment-ajax" )
+//public String addComment(Model model) {
+//        Comment comment = new Comment();
+//        commentService.findByProductId()
+//}
+    @RequestMapping(value = "/add-comment-ajax", method = RequestMethod.POST)
     public String addComment(@RequestParam("productId") Integer productId, @RequestParam("comment") String ctm, @RequestParam("rating") Integer rating) {
         ;
         UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginUser");

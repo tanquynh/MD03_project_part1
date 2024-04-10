@@ -233,7 +233,7 @@
                 customerImg.src = e.target.result;
                 customerImg.classList.remove('hidden');
             }
-            reader.readAsDataURL(input.files[0]); // convert to base64 string
+            reader.readAsDataURL(input.files[0]);
         } else {
             customerImg.src = "";
             customerImg.classList.add('hidden');

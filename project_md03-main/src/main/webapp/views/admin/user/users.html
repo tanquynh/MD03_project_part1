@@ -130,6 +130,7 @@
                                                 <th>User Name</th>
                                                 <th>Phone</th>
                                                 <th>Email</th>
+                                                <th>Role</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -161,7 +162,10 @@
                                                     ></span>
 
                                                 </td>
+                                                <td>
+                                                    <span th:text="${user.role ? 'user' : 'admin'}"></span>
 
+                                                </td>
                                                 <td>
                                                     <span th:text="${user.userStatus?'Active':'BLock'}"></span>
                                                 </td>

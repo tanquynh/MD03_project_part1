@@ -96,12 +96,11 @@
                                 </tr>
 
                                 <tr class="pr_remove">
-                                    <td class="row_title"></td>
+                                    <td class="row_title">Remove</td>
                                     <td class="row_remove remove-product" th:each="compareRemove : ${compareList}">
-                                        th:data-product-id="${compareRemove.product.productId}"><span>Remove</span>
+                                        <a th:href="@{/compare-delete/{id}(id=${compareRemove.product.productId})}">Remove</a>
                                         <i class="fa fa-times"></i>
                                     </td>
-
                                 </tr>
                                 </tbody>
                             </table>
@@ -168,25 +167,25 @@
 
     });
 </script>
-<script>
+<!--<script>-->
 
-    $('.remove-product').on('click', function (e) {
-        e.preventDefault();
-        var product = $(this).data('product-id');
-        console.log(product)
-        $.ajax({
-            type: 'GET',
-            url: `/addToCart?productId=` + product,
-            success: function () {
-                console.log('Sản phẩm đã được xoa khoi compare');
-            },
-            error: function () {
-                console.error('Lỗi khi xao khoi compare:');
+<!--    $('.remove-product').on('click', function (e) {-->
+<!--        e.preventDefault();-->
+<!--        var product = $(this).data('product-id');-->
+<!--        console.log(product)-->
+<!--        $.ajax({-->
+<!--            type: 'GET',-->
+<!--            url: `/addToCart?productId=` + product,-->
+<!--            success: function () {-->
+<!--                console.log('Sản phẩm đã được xoa khoi compare');-->
+<!--            },-->
+<!--            error: function () {-->
+<!--                console.error('Lỗi khi xao khoi compare:');-->
 
-            }
-        });
+<!--            }-->
+<!--        });-->
 
-    });
-</script>
+<!--    });-->
+<!--</script>-->
 </body>
 </html>

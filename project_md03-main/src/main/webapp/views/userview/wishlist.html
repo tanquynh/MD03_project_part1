@@ -66,7 +66,7 @@
                                 <th class="product-thumbnail">Product Image</th>
                                 <th class="product-name">Product</th>
                                 <th class="product-price">Price</th>
-                                <th class="product-add-to-cart"></th>
+                                <th class="product-add-to-cart"> Action</th>
                                 <th class="product-remove">Remove</th>
                             </tr>
                             </thead>
@@ -83,9 +83,9 @@
                                 <td class="product-add-to-cart"><a href="#" class="btn btn-fill-out add-to-cart-btn"
                                                                    th:data-product-id="${wLish.product.productId}"><i
                                         class="icon-basket-loaded"></i> Add to Cart</a></td>
-                                <td class="product-remove" data-title="Remove"><a href="#" class=" remove-product"
-                                                                                  th:data-product-id="${wLish.product.productId}"><i
-                                        class="ti-close"></i></a></td>
+                                <td class="product-remove" data-title="Remove" ><a  class=" remove-product"
+                                                                                    th:href="@{/wishlist-delete/{id}(id=${wLish.product.productId})}"                                          >
+                                    <i class="ti-close"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -151,25 +151,25 @@
 
     });
 </script>
-<script>
+<!--<script>-->
 
-    $('.remove-product').on('click', function (e) {
-        e.preventDefault();
-        var product = $(this).data('product-id');
-        console.log(product)
-        $.ajax({
-            type: 'GET',
-            url: `/addToCart?productId=` + product,
-            success: function () {
-                console.log('Sản phẩm đã được xoa khoi muc yeu thich');
-            },
-            error: function () {
-                console.error('Lỗi khi xao khoi muc yeu thich:');
+<!--    $('.remove-product').on('click', function (e) {-->
+<!--        e.preventDefault();-->
+<!--        var product = $(this).data('product-id');-->
+<!--        console.log(product)-->
+<!--        $.ajax({-->
+<!--            type: 'GET',-->
+<!--            url: `/addToCart?productId=` + product,-->
+<!--            success: function () {-->
+<!--                console.log('Sản phẩm đã được xoa khoi muc yeu thich');-->
+<!--            },-->
+<!--            error: function () {-->
+<!--                console.error('Lỗi khi xao khoi muc yeu thich:');-->
 
-            }
-        });
+<!--            }-->
+<!--        });-->
 
-    });
-</script>
+<!--    });-->
+<!--</script>-->
 </body>
 </html>

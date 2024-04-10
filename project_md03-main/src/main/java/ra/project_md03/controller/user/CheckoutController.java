@@ -19,6 +19,7 @@ import ra.project_md03.model.service.user.UserService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -73,9 +74,16 @@ public class CheckoutController {
                                RedirectAttributes redirectAttributes) {
         User user = userService.findByMail(userCheckoutDTO.getEmail());
         List<CartItemDB> list = cartItemDBService.getCartUserLogin(cartItemDBService.getCartID(user.getUserId()));
-
         Order order = new Order();
-        order.setOrderTotal(cartItemDBService.getCartTotal(list));
+        Object totalObj = httpSession.getAttribute("totalCart");
+        if (totalObj != null) {
+            BigDecimal total = new BigDecimal(totalObj.toString());
+            // Set the order total
+            order.setOrderTotal(total);
+        } else {
+            System.out.println("Error: Attribute 'totalCart' not found or is not a BigDecimal");
+        }
+
         order.setNote(userCheckoutDTO.getNote());
         order.setUser(user);
         order.setAddress(userCheckoutDTO.getAddress());
@@ -101,7 +109,7 @@ public class CheckoutController {
         List<CartItemDB> cartItemDBList = cartItemDBService.getCartUserLogin(cartItemDBService.getCartID(user.getUserId()));
         int totalProduct = cartItemDBList.stream().mapToInt(CartItemDB::getQuantity).sum();
         httpSession.setAttribute("cartTotalProduct", totalProduct);
-        return "userview/order-complete";
+        return "userview/order-completed";
     }
 
 }

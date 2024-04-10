@@ -18,6 +18,7 @@
             border-color: #dc3545 !important; /* Đổi màu viền của trường nhập liệu thành đỏ */
             border-width: 1px; /* Độ dày của đường viền */
         }
+
         .input-with-icon {
             position: relative;
         }
@@ -94,35 +95,33 @@
 
                                 <div class="form-group mb-3">
                                     <input type="text" th:field="*{username}" required="" class="form-control"
-                                           name="name"
-                                           th:classappend="${#fields.hasErrors('username')} ? 'border-danger' : ''"
                                            placeholder="Enter Your Name">
-                                    <div class="error-message "
-                                         th:if="${#fields.hasErrors('username')}"
-                                         th:errors="*{username}"></div>
+
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input type="text" th:field="*{email}" required="" class="form-control" name="email"
-                                           th:classappend="${#fields.hasErrors('username')} ? 'border-danger' : ''" placeholder="Enter Your Email">
-                                    <div class="error-message "
-                                         th:if="${#fields.hasErrors('email')}"
-                                         th:errors="*{email}"></div>
-                                </div>
-                                <div class="form-group mb-3">
+                                    <input type="text" th:field="*{email}" required="" class="form-control"
+                                           placeholder="Enter Your Email">
+                                </div>  <div class="form-group mb-3">
                                     <input type="text" th:field="*{address}" required="" class="form-control"
-                                           name="address" placeholder="Enter Your Address">
+                                           placeholder="Enter Your Address">
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input type="text" th:field="*{phone}" required="" class="form-control" name="phone"
+                                    <input type="text" th:field="*{phone}" required="" class="form-control"
                                            placeholder="Enter Your Phone">
                                 </div>
                                 <div class="form-group mb-3 input-with-icon">
-                                    <input class="form-control" th:field="*{password}" required="" type="password" id="passwordInput" name="password" placeholder="Password">
-                                    <span class="toggle-password" onclick="togglePasswordVisibility('passwordInput', 'toggle-icon-1')"><i id="toggle-icon-1" class="fa fa-eye-slash"></i></span>
+                                    <input class="form-control" th:field="*{password}" required="" type="password"
+                                           id="passwordInput"  placeholder="Password">
+                                    <span class="toggle-password"
+                                          onclick="togglePasswordVisibility('passwordInput', 'toggle-icon-1')"><i
+                                            id="toggle-icon-1" class="fa fa-eye-slash"></i></span>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <input class="form-control" required="" type="password" id="passwordInput1" name="password" placeholder="Password">
-                                    <span class="toggle-password" onclick="togglePasswordVisibility('passwordInput1', 'toggle-icon-2')"><i id="toggle-icon-2" class="fa fa-eye-slash"></i></span>
+                                <div class="form-group mb-3 input-with-icon">
+                                    <input class="form-control" required="" type="password" id="passwordInput1" name="confirm-password"
+                                           placeholder="Confirm Password">
+                                    <span class="toggle-password"
+                                          onclick="togglePasswordVisibility('passwordInput1', 'toggle-icon-2')"><i
+                                            id="toggle-icon-2" class="fa fa-eye-slash"></i></span>
                                 </div>
                                 <div class="login_footer form-group mb-3">
                                     <div class="chek-form">

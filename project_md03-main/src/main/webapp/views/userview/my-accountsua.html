@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -59,35 +59,36 @@
             <div class="row">
                 <div class="col-lg-3 col-md-4">
                     <div class="dashboard_menu">
-                        <ul class="nav nav-tabs flex-column" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard"
-                                   role="tab" aria-controls="dashboard" aria-selected="false"><i
-                                        class="ti-layout-grid2"></i>Dashboard</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab"
-                                   aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Orders</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab"
-                                   aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>My
-                                    Address</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail"
-                                   role="tab" aria-controls="account-detail" aria-selected="true"><i
-                                        class="ti-id-badge"></i>Account details</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="change-password-tab" data-bs-toggle="tab"
-                                   href="#change-password" role="tab"
-                                   aria-controls="change-password" aria-selected="true"> <i class="fas fa-lock"></i>Change
-                                    PassWord</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="login.html"><i class="ti-lock"></i>Logout</a>
-                            </li>
+                        <ul class="nav nav-tabs flex-column">
+                            <ul class="nav nav-tabs flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#dashboard"
+                                    ><i
+                                            class="ti-layout-grid2"></i>Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/profile/order}"
+                                    ><i class="ti-shopping-cart-full"></i>Orders</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/profile/address}"
+                                    ><i class="ti-location-pin"></i>My
+                                        Address</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/profile/edit-profile}"
+                                       aria-selected="true"><i
+                                            class="ti-id-badge"></i>Account details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       th:href="@{/profile/change-password}"> <i class="fas fa-lock"></i>Change
+                                        PassWord</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/login}"><i class="ti-lock"></i>Logout</a>
+                                </li>
+                            </ul>
                         </ul>
                     </div>
                 </div>
@@ -113,137 +114,149 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3>Orders</h3>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>Order</th>
-                                                <th>Date</th>
-                                                <th>Status</th>
-                                                <th>Total</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>#1234</td>
-                                                <td>March 15, 2020</td>
-                                                <td>Processing</td>
-                                                <td>$78.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>#2366</td>
-                                                <td>June 20, 2020</td>
-                                                <td>Completed</td>
-                                                <td>$81.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="card mb-3 mb-lg-0">
-                                        <div class="card-header">
-                                            <h3>Billing Address</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <address>House #15<br>Road #1<br>Block #C <br>Angali <br> Vedora <br>1212
-                                            </address>
-                                            <p>New York</p>
-                                            <a href="#" class="btn btn-fill-out">Edit</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h3>Shipping Address</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <address>House #15<br>Road #1<br>Block #C <br>Angali <br> Vedora <br>1212
-                                            </address>
-                                            <p>New York</p>
-                                            <a href="#" class="btn btn-fill-out">Edit</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="account-detail" role="tabpanel"
-                             aria-labelledby="account-detail-tab">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3>Account Details</h3>
-                                </div>
-                                <div class="card-body">
-                                    <form method="post" name="enq" th:action="@{/profile/edit-profile}"
-                                          th:object="${user}" enctype="multipart/form-data">
-                                        <div class="row">
-                                            <div class="form-group col-md-12 mb-3">
-                                                <label>ID <span class="required">*</span></label>
-                                                <input required="" class="form-control" th:field="*{id}"
-                                                     readonly  type="text">
-                                            </div>
-                                            <div class="form-group col-md-12 mb-3">
-                                                <label>Avatar <span class="required">*</span></label>
-                                                <div class="col-sm-6">
-                                                    <input type="file" class="form-control" onchange="showImage(this)"
-                                                           th:name="img">
-                                                    <div class="py-3">
-                                                        <img src="" alt="" id="customer-img"
-                                                             class="h-auto rounded-3 border object-fit-cover hidden"
-                                                             width="85%" height="45%">
+                                                <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h3>Orders</h3>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>Order</th>
+                                                                        <th>Date</th>
+                                                                        <th>Status</th>
+                                                                        <th>Total</th>
+                                                                        <th>Actions</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td>#1234</td>
+                                                                        <td>March 15, 2020</td>
+                                                                        <td>Processing</td>
+                                                                        <td>$78.00 for 1 item</td>
+                                                                        <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>#2366</td>
+                                                                        <td>June 20, 2020</td>
+                                                                        <td>Completed</td>
+                                                                        <td>$81.00 for 1 item</td>
+                                                                        <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group col-md-12 mb-3">
-                                                <label>User Name <span class="required">*</span></label>
-                                                <input required="" class="form-control" th:field="*{username}"
-                                                       type="text">
-                                            </div>
 
-                                            <div class="form-group col-md-12 mb-3">
-                                                <label>Phone <span class="required">*</span></label>
-                                                <input required="" class="form-control" th:field="*{phone}" type="text">
-                                            </div>
-                                            <div class="form-group col-md-12 mb-3">
-                                                <label>Email <span class="required">*</span></label>
-                                                <input required="" class="form-control" th:field="*{email}"
-                                                       type="email">
-                                            </div>
-                                            <div class="form-group col-md-12 mb-3">
-                                                <label>Address <span class="required">*</span></label>
-                                                <input required="" class="form-control" th:field="*{address}"
-                                                       type="text">
-                                            </div>
-                                            <div class="form-group col-md-12 mb-3">
-                                                <label> Password <span class="required">*</span></label>
-                                                <input required="" class="form-control" th:field="*{password}"
-                                                       type="password">
-                                            </div>
+                        <!--                        <div class="tab-pane fade" id="account-detail" role="tabpanel"-->
+                        <!--                             aria-labelledby="account-detail-tab">-->
+                        <!--                            <div class="card">-->
+                        <!--                                <div class="card-header">-->
+                        <!--                                    <h3>Account Details</h3>-->
+                        <!--                                </div>-->
+                        <!--                                <div class="card-body">-->
+                        <!--                                    <form method="post" name="enq" th:action="@{/profile/edit-profile}"-->
+                        <!--                                          th:object="${user}" enctype="multipart/form-data">-->
+                        <!--                                        <div class="row">-->
+                        <!--                                            <div class="form-group col-md-12 mb-3">-->
+                        <!--                                                <label>ID <span class="required">*</span></label>-->
+                        <!--                                                <input required="" class="form-control" th:field="*{id}"-->
+                        <!--                                                       readonly type="text">-->
+                        <!--                                            </div>-->
+                        <!--                                            <div class="form-group col-md-12 mb-3">-->
+                        <!--                                                <label>Avatar <span class="required">*</span></label>-->
+                        <!--                                                <div class="col-sm-6">-->
+                        <!--                                                    <input type="file" class="form-control" onchange="showImage(this)"-->
+                        <!--                                                           th:name="img">-->
+                        <!--                                                    <div class="py-3">-->
+                        <!--                                                        <img src="" alt="" id="customer-img"-->
+                        <!--                                                             class="h-auto rounded-3 border object-fit-cover hidden"-->
+                        <!--                                                             width="85%" height="45%">-->
+                        <!--                                                    </div>-->
+                        <!--                                                </div>-->
+                        <!--                                            </div>-->
+                        <!--                                            <div class="form-group col-md-12 mb-3">-->
+                        <!--                                                <label>User Name <span class="required">*</span></label>-->
+                        <!--                                                <input required="" class="form-control" th:field="*{username}"-->
+                        <!--                                                       type="text">-->
+                        <!--                                            </div>-->
 
-                                            <div class="col-md-12">
-                                                <button type="submit" class="btn btn-fill-out" name="submit"
-                                                        value="Submit">Save
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        <!--                                            <div class="form-group col-md-12 mb-3">-->
+                        <!--                                                <label>Phone <span class="required">*</span></label>-->
+                        <!--                                                <input required="" class="form-control" th:field="*{phone}" type="text">-->
+                        <!--                                            </div>-->
+                        <!--                                            <div class="form-group col-md-12 mb-3">-->
+                        <!--                                                <label>Email <span class="required">*</span></label>-->
+                        <!--                                                <input required="" class="form-control" th:field="*{email}"-->
+                        <!--                                                       type="email">-->
+                        <!--                                            </div>-->
+                        <!--                                            <div class="form-group col-md-12 mb-3">-->
+                        <!--                                                <label>Address <span class="required">*</span></label>-->
+                        <!--                                                <input required="" class="form-control" th:field="*{address}"-->
+                        <!--                                                       type="text">-->
+                        <!--                                            </div>-->
+                        <!--                                            <div class="form-group col-md-12 mb-3">-->
+                        <!--                                                <label> Password <span class="required">*</span></label>-->
+                        <!--                                                <input required="" class="form-control" th:field="*{password}"-->
+                        <!--                                                       type="password">-->
+                        <!--                                            </div>-->
+
+                        <!--                                            <div class="col-md-12">-->
+                        <!--                                                <button type="submit" class="btn btn-fill-out" name="submit"-->
+                        <!--                                                        value="Submit">Save-->
+                        <!--                                                </button>-->
+                        <!--                                            </div>-->
+                        <!--                                        </div>-->
+                        <!--                                    </form>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="tab-pane fade" id="change-password" role="tabpanel"-->
+                        <!--                             aria-labelledby="change-password-tab">-->
+                        <!--                            <div class="card">-->
+                        <!--                                <div class="card-header">-->
+                        <!--                                    <h3>Change Password</h3>-->
+                        <!--                                </div>-->
+                        <!--                                <div class="card-body">-->
+                        <!--                                    <form method="post" name="enq" th:action="@{/profile/change-password}"-->
+                        <!--                                          th:object="${user}" enctype="multipart/form-data">-->
+                        <!--                                        <div class="row">-->
+                        <!--                                            <div class="form-group col-md-12 mb-3">-->
+                        <!--                                                <label>Old Password: <span class="required">*</span></label>-->
+                        <!--                                                <input required type="password" class="form-control" name="old-password"-->
+                        <!--                                                       placeholder="Enter Old Password">-->
+                        <!--                                                <i class="bi bi-eye-slash" id="togglePassword1"-->
+                        <!--                                                   onclick="togglePassword('old-password', 'togglePassword1')"></i>-->
+                        <!--                                            </div>-->
+                        <!--                                            <div class="form-group col-md-12 mb-3">-->
+                        <!--                                                <label>New Password: <span class="required">*</span></label>-->
+                        <!--                                                <input required type="password" class="form-control" name="new-password"-->
+                        <!--                                                       placeholder="Enter New Password">-->
+                        <!--                                                <i class="bi bi-eye-slash" id="togglePassword2"-->
+                        <!--                                                   onclick="togglePassword('new-password', 'togglePassword2')"></i>-->
+                        <!--                                            </div>-->
+                        <!--                                            <div class="form-group col-md-12 mb-3">-->
+                        <!--                                                <label>Confirm Password: <span class="required">*</span></label>-->
+                        <!--                                                <input required type="password" class="form-control"-->
+                        <!--                                                       name="confirm-password" placeholder="Confirm Password">-->
+                        <!--                                                <i class="bi bi-eye-slash" id="togglePassword3"-->
+                        <!--                                                   onclick="togglePassword('confirm-password', 'togglePassword3')"></i>-->
+                        <!--                                            </div>-->
+                        <!--                                            <div class="col-md-12">-->
+                        <!--                                                <button type="submit" class="btn btn-fill-out" name="submit"-->
+                        <!--                                                        value="Submit">Save-->
+                        <!--                                                </button>-->
+                        <!--                                            </div>-->
+                        <!--                                        </div>-->
+                        <!--                                    </form>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>

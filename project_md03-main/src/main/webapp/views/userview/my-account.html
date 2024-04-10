@@ -6,7 +6,23 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .form-group {
+            position: relative;
+        }
 
+        .form-group input[type="password"] {
+            padding-right: 30px; /* Để chừa không gian cho biểu tượng mắt */
+        }
+
+        .form-group i {
+            position: absolute;
+            top: 50%;
+            right: 10px; /* Điều chỉnh vị trí từ phải sang trái */
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -67,11 +83,11 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link"  th:href="@{/profile/order}"
-                                   aria-selected="false"><i class="ti-shopping-cart-full"></i>Orders</a>
+                                  ><i class="ti-shopping-cart-full"></i>Orders</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link"  th:href="@{/profile/address}"
-                                   aria-selected="true"><i class="ti-location-pin"></i>My
+                                 ><i class="ti-location-pin"></i>My
                                     Address</a>
                             </li>
                             <li class="nav-item">
@@ -82,7 +98,7 @@
                             <li class="nav-item">
                                 <a class="nav-link"
 
-                                   th:href="@{/profile-change-password}"> <i class="fas fa-lock"></i>Change
+                                   th:href="@{/profile/change-password}"> <i class="fas fa-lock"></i>Change
                                     PassWord</a>
                             </li>
                             <li class="nav-item">
